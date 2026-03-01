@@ -10,20 +10,21 @@ export const metadata: Metadata = {
   title: 'Omar Amato - Senior Product Designer for Complex B2B Systems',
   description: 'I design dashboards, IoT tools, and regulated products for global B2B companies. 12+ years shipping usable systems for traffic control, manufacturing, fintech, and SaaS.',
   generator: 'v0.app',
+  applicationName: 'Omar Amato Portfolio',
+  keywords: 'product design, UX design, B2B design, dashboard design, IoT design, fintech design',
+  authors: [{ name: 'Omar Amato' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://www.omaramato.com',
+    title: 'Omar Amato - Senior Product Designer for Complex B2B Systems',
+    description: 'I design dashboards, IoT tools, and regulated products for global B2B companies. 12+ years shipping usable systems for traffic control, manufacturing, fintech, and SaaS.',
+    siteName: 'Omar Amato',
+  },
   icons: {
     icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
+      { url: '/favicon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
     ],
     apple: '/apple-icon.png',
   },
