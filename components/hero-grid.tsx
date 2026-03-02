@@ -1,9 +1,21 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export function HeroGrid() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    setIsDesktop(window.innerWidth >= 768)
+    
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768)
+    }
+    
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -26,13 +38,12 @@ export function HeroGrid() {
     window.addEventListener("resize", resize)
 
     // Glow points that pulse slowly - responsive sizes
-    const isDesktop = typeof window !== "undefined" && window.innerWidth >= 768
     const glows = [
-      { x: 0.18, y: 0.25, radius: isDesktop ? 420 : 220, phase: 0, speed: 0.003 },
-      { x: 0.78, y: 0.35, radius: isDesktop ? 350 : 180, phase: 2, speed: 0.004 },
-      { x: 0.50, y: 0.55, radius: isDesktop ? 520 : 280, phase: 4, speed: 0.002 },
-      { x: 0.30, y: 0.75, radius: isDesktop ? 320 : 160, phase: 1, speed: 0.005 },
-      { x: 0.72, y: 0.70, radius: isDesktop ? 380 : 200, phase: 3, speed: 0.003 },
+      { x: 0.18, y: 0.25, radius: isDesktop ? 520 : 220, phase: 0, speed: 0.003 },
+      { x: 0.78, y: 0.35, radius: isDesktop ? 450 : 180, phase: 2, speed: 0.004 },
+      { x: 0.50, y: 0.55, radius: isDesktop ? 640 : 280, phase: 4, speed: 0.002 },
+      { x: 0.30, y: 0.75, radius: isDesktop ? 420 : 160, phase: 1, speed: 0.005 },
+      { x: 0.72, y: 0.70, radius: isDesktop ? 480 : 200, phase: 3, speed: 0.003 },
     ]
 
     // Horizontal scan lines that drift slowly
@@ -149,7 +160,7 @@ export function HeroGrid() {
       window.removeEventListener("resize", resize)
       cancelAnimationFrame(animationId)
     }
-  }, [])
+  }, [isDesktop])
 
   return (
     <canvas
