@@ -67,8 +67,11 @@ export function HeroSection() {
 
         {/* Subheading - animated reveal */}
         <p
-          className="animate-text-reveal mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-foreground/75 md:text-xl"
-          style={{ animationDelay: "0.6s" }}
+          className="animate-text-reveal mx-auto mt-6 max-w-2xl text-pretty text-lg font-medium leading-relaxed text-foreground md:text-xl"
+          style={{
+            animationDelay: "0.6s",
+            textShadow: "0 2px 8px oklch(0 0 0 / 0.4), 0 0 20px oklch(0 0 0 / 0.2)",
+          }}
         >
           I design dashboards, IoT tools, and regulated products for global B2B companies. 12+ years shipping usable systems for traffic control, manufacturing, fintech, and SaaS. Available for remote work worldwide.
         </p>
