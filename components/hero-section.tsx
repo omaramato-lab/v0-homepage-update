@@ -51,7 +51,7 @@ export function HeroSection() {
 
         {/* Subtitle - animated reveal */}
         <p
-          className="animate-text-reveal mb-4 font-mono text-sm tracking-widest text-muted-foreground uppercase"
+          className="animate-text-reveal mb-4 font-mono text-sm tracking-widest text-foreground/70 uppercase"
           style={{ animationDelay: "0.2s" }}
         >
           Antonino Omar Amato
@@ -67,7 +67,7 @@ export function HeroSection() {
 
         {/* Subheading - animated reveal */}
         <p
-          className="animate-text-reveal mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted-foreground md:text-xl"
+          className="animate-text-reveal mx-auto mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-foreground/75 md:text-xl"
           style={{ animationDelay: "0.6s" }}
         >
           I design dashboards, IoT tools, and regulated products for global B2B companies. 12+ years shipping usable systems for traffic control, manufacturing, fintech, and SaaS. Available for remote work worldwide.
