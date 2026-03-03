@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description: 'I design dashboards, IoT tools, and regulated products for global B2B companies. 12+ years shipping usable systems for traffic control, manufacturing, fintech, and SaaS.',
   generator: 'v0.app',
   applicationName: 'Omar Amato Portfolio',
-  keywords: 'product design, UX design, B2B design, dashboard design, IoT design, fintech design',
+  keywords: 'product design, UX design, B2B design, dashboard design, IoT design, fintech design, AI-driven design, design systems',
   authors: [{ name: 'Omar Amato' }],
   openGraph: {
     type: 'website',
