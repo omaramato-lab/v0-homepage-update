@@ -107,6 +107,16 @@ export function AboutSection() {
           </div>
         </FadeIn>
 
+        {/* Design Approach - AI-Enhanced */}
+        <FadeIn delay={250}>
+          <div className="mx-auto mb-16 max-w-3xl rounded-xl border border-primary/20 bg-primary/5 p-6">
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground">AI-Enhanced Design Process:</span>{" "}
+              {"I leverage AI tools (Perplexity for research, Read.ai for interview insights, v0 for rapid prototyping) to accelerate research, streamline workflows, and deliver faster iterations without compromising on strategic thinking and user-centered principles."}
+            </p>
+          </div>
+        </FadeIn>
+
         {/* Specializations */}
         <FadeIn>
           <h3 className="mb-8 text-center text-xl font-semibold text-foreground">
