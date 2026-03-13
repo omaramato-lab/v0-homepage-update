@@ -19,9 +19,9 @@ export function HeroSection() {
   return (
     <>
       <section className="relative min-h-screen flex items-center pt-16 md:pt-20 bg-gradient-to-br from-background via-background to-primary/5 overflow-hidden">
-        {/* Glowing orbs */}
-        <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-violet-600/20 blur-[120px] pointer-events-none z-0" />
-        <div className="absolute bottom-1/4 -right-32 w-[450px] h-[450px] rounded-full bg-teal-400/20 blur-[120px] pointer-events-none z-0" />
+        {/* Glowing orbs - hidden on mobile for performance */}
+        <div className="hidden md:block absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full bg-violet-600/20 blur-[120px] pointer-events-none z-0" />
+        <div className="hidden md:block absolute bottom-1/4 -right-32 w-[450px] h-[450px] rounded-full bg-teal-400/20 blur-[120px] pointer-events-none z-0" />
 
         {/* Animated diagonal wavy lines background */}
         <div className="absolute inset-0 z-0">

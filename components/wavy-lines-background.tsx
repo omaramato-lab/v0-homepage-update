@@ -16,13 +16,15 @@ export function WavyLinesBackground() {
             animation: wavySlide 25s ease-in-out infinite;
             will-change: transform;
           }
+          .wavy-svg {
+            filter: drop-shadow(0 0 4px rgba(139, 92, 246, 0.2));
+          }
         }
       `}</style>
       <svg
-        className="w-full h-full"
+        className="wavy-svg w-full h-full"
         viewBox="0 0 1200 800"
         preserveAspectRatio="none"
-        style={{ filter: "drop-shadow(0 0 4px rgba(139, 92, 246, 0.2))" }}
       >
         <defs>
           {/* Purple to Blue gradient: #8b5cf6 → #3b82f6 → #60a5fa */}
