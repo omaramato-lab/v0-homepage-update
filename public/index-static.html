@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omar Amato - Lead UX/UI Designer | Fractional Head of Design</title>
+  <meta name="description" content="Lead Designer con 12+ anni di esperienza in prodotti digitali complessi per B2B. Fractional Head of Design, UX Audit e Landing Page Design.">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+      background: #05070a;
+      color: #e5e7eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(5, 7, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+      z-index: 1000;
+      padding: 1rem 0;
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6c5ce7 0%, #00b4d8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #6c5ce7;
+    }
+
+    .lang-btn {
+      padding: 0.4rem 0.8rem;
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      border-radius: 6px;
+      background: transparent;
+      color: #e5e7eb;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .lang-btn:hover {
+      background: #6c5ce7;
+      border-color: #6c5ce7;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-content h3 {
+      font-size: 0.9rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #6c5ce7;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-content h4 {
+      font-size: 1.1rem;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: #e5e7eb;
+    }
+
+    .hero-content h1 .highlight {
+      color: #6c5ce7;
+    }
+
+    .hero-content p {
+      font-size: 1.125rem;
+      color: #9ca3af;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      padding: 1rem 2rem;
+      background: #6c5ce7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #5b4cce;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(108, 92, 231, 0.3);
+    }
+
+    .btn-secondary {
+      padding: 1rem 2rem;
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: #6c5ce7;
+      background: rgba(108, 92, 231, 0.1);
+    }
+
+    .hero-image {
+      position: relative;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      max-width: 600px;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    /* Services Section */
+    .section {
+      padding: 6rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #6c5ce7 0%, #00b4d8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-header p {
+      font-size: 1.125rem;
+      color: #9ca3af;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: #0d1016;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+
+    .service-card:hover {
+      border-color: #6c5ce7;
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(108, 92, 231, 0.2);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #6c5ce7 0%, #00b4d8 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+
+    .service-card p {
+      color: #9ca3af;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #00b4d8;
+      margin-bottom: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background: #0d1016;
+      border-top: 1px solid rgba(108, 92, 231, 0.1);
+      padding: 2rem 0;
+      text-align: center;
+    }
+
+    footer p {
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      nav {
+        gap: 1rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">OA</div>
+        <nav id="nav">
+          <a href="#servizi">Servizi</a>
+          <a href="#portfolio">Portfolio</a>
+          <a href="#esperienza">Esperienza</a>
+          <a href="#contatti">Contatti</a>
+          <button class="lang-btn" onclick="switchLanguage()">ENG</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <h3 id="hero-name">ANTONINO OMAR AMATO</h3>
+          <h4 id="hero-role">LEAD DESIGNER</h4>
+          <h1 id="hero-title">
+            Progetto prodotti digitali <span class="highlight">complessi</span>
+          </h1>
+          <p id="hero-desc">
+            Trasformo esperienze B2B complicate in soluzioni intuitive che team e utenti adorano usare.
+          </p>
+          <div class="hero-cta">
+            <a href="#contatti" class="btn-primary" id="hero-cta1">Prenota una Call</a>
+            <a href="#servizi" class="btn-secondary" id="hero-cta2">Scopri i Servizi</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="/images/consolle2.png" alt="Design workspace">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section" id="servizi">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="services-title">Servizi</h2>
+        <p id="services-subtitle">Soluzioni su misura per le tue esigenze di design</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">👔</div>
+          <h3 id="service1-title">Fractional Head of Design</h3>
+          <p id="service1-desc">Leadership strategica part-time per il tuo team di design</p>
+          <div class="service-price">€4.500/mese</div>
+          <a href="fractional-head-of-design.html" class="btn-primary">Scopri di più</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🔍</div>
+          <h3 id="service2-title">UX Audit</h3>
+          <p id="service2-desc">Analisi approfondita e raccomandazioni per migliorare la UX</p>
+          <div class="service-price">€3.500</div>
+          <a href="ux-audit.html" class="btn-primary">Scopri di più</a>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎨</div>
+          <h3 id="service3-title">Sito Web & Landing Page</h3>
+          <p id="service3-desc">Design e sviluppo di landing page ad alta conversione</p>
+          <div class="service-price">€2.200</div>
+          <a href="landing-page-design.html" class="btn-primary">Scopri di più</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section" id="contatti">
+    <div class="container">
+      <div class="section-header">
+        <h2 id="contact-title">Iniziamo?</h2>
+        <p id="contact-subtitle">Prenota una call gratuita o inviami un'email</p>
+      </div>
+      <div class="hero-cta" style="justify-content: center;">
+        <a href="https://calendly.com/amato-omar/15min" target="_blank" class="btn-primary" id="contact-cta1">Prenota Call Gratuita</a>
+        <a href="mailto:info@omaramato.com" class="btn-secondary" id="contact-cta2">Invia Email</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p id="footer-text">&copy; 2025 Omar Amato. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
+
+  <script>
+    let currentLang = 'it';
+
+    const translations = {
+      it: {
+        'hero-name': 'ANTONINO OMAR AMATO',
+        'hero-role': 'LEAD DESIGNER',
+        'hero-title': 'Progetto prodotti digitali complessi',
+        'hero-desc': 'Trasformo esperienze B2B complicate in soluzioni intuitive che team e utenti adorano usare.',
+        'hero-cta1': 'Prenota una Call',
+        'hero-cta2': 'Scopri i Servizi',
+        'services-title': 'Servizi',
+        'services-subtitle': 'Soluzioni su misura per le tue esigenze di design',
+        'service1-title': 'Fractional Head of Design',
+        'service1-desc': 'Leadership strategica part-time per il tuo team di design',
+        'service2-title': 'UX Audit',
+        'service2-desc': 'Analisi approfondita e raccomandazioni per migliorare la UX',
+        'service3-title': 'Sito Web & Landing Page',
+        'service3-desc': 'Design e sviluppo di landing page ad alta conversione',
+        'contact-title': 'Iniziamo?',
+        'contact-subtitle': 'Prenota una call gratuita o inviami un\'email',
+        'contact-cta1': 'Prenota Call Gratuita',
+        'contact-cta2': 'Invia Email',
+        'footer-text': '© 2025 Omar Amato. Tutti i diritti riservati.'
+      },
+      en: {
+        'hero-name': 'ANTONINO OMAR AMATO',
+        'hero-role': 'LEAD DESIGNER',
+        'hero-title': 'I design complex digital products',
+        'hero-desc': 'I transform complicated B2B experiences into intuitive solutions that teams and users love to use.',
+        'hero-cta1': 'Book a Call',
+        'hero-cta2': 'Explore Services',
+        'services-title': 'Services',
+        'services-subtitle': 'Tailored solutions for your design needs',
+        'service1-title': 'Fractional Head of Design',
+        'service1-desc': 'Part-time strategic leadership for your design team',
+        'service2-title': 'UX Audit',
+        'service2-desc': 'In-depth analysis and recommendations to improve UX',
+        'service3-title': 'Website & Landing Page',
+        'service3-desc': 'Design and development of high-conversion landing pages',
+        'contact-title': 'Let\'s Start?',
+        'contact-subtitle': 'Book a free call or send me an email',
+        'contact-cta1': 'Book Free Call',
+        'contact-cta2': 'Send Email',
+        'footer-text': '© 2025 Omar Amato. All rights reserved.'
+      }
+    };
+
+    function switchLanguage() {
+      currentLang = currentLang === 'it' ? 'en' : 'it';
+      const langBtn = document.querySelector('.lang-btn');
+      langBtn.textContent = currentLang === 'it' ? 'ENG' : 'IT';
+      
+      // Update all translatable elements
+      const lang = translations[currentLang];
+      for (const [id, text] of Object.entries(lang)) {
+        const element = document.getElementById(id);
+        if (element) {
+          element.innerHTML = text;
+        }
+      }
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

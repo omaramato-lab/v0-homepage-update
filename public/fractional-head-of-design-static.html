@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fractional Head of Design - Omar Amato</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      background: #05070a;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    header {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #6c5ce7 0%, #00b4d8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #6c5ce7;
+    }
+
+    .hero {
+      padding: 4rem 0;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #6c5ce7 0%, #00b4d8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #9ca3af;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .section {
+      padding: 4rem 0;
+    }
+
+    .section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      position: relative;
+      padding-bottom: 1rem;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #6c5ce7 0%, #00b4d8 100%);
+    }
+
+    .card {
+      background: #0d1016;
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .card:hover {
+      border-color: #6c5ce7;
+      transform: translateY(-3px);
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      color: #00b4d8;
+      margin-bottom: 0.75rem;
+    }
+
+    .btn-primary {
+      padding: 1rem 2rem;
+      background: #6c5ce7;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: #5b4cce;
+    }
+
+    footer {
+      border-top: 1px solid rgba(108, 92, 231, 0.1);
+      padding: 2rem 0;
+      text-align: center;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <a href="index-static.html" class="logo">OA</a>
+        <nav>
+          <a href="index-static.html">Home</a>
+          <a href="fractional-head-of-design-static.html">Fractional Head</a>
+          <a href="ux-audit-static.html">UX Audit</a>
+          <a href="landing-page-design-static.html">Landing Page</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="container">
+      <h1>Fractional Head of Design</h1>
+      <p>Leadership strategica part-time per accelerare la crescita del tuo prodotto</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2>Cosa Faccio</h2>
+      <div class="card">
+        <h3>Design Strategy</h3>
+        <p>Definisco la visione e la roadmap del design allineata agli obiettivi di business</p>
+      </div>
+      <div class="card">
+        <h3>Team Mentoring</h3>
+        <p>Guido e faccio crescere il team di design con feedback e best practices</p>
+      </div>
+      <div class="card">
+        <h3>Design System</h3>
+        <p>Creo e mantengo design system scalabili per velocizzare lo sviluppo</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="text-align: center; padding: 6rem 0;">
+    <div class="container">
+      <h2 style="text-align: center;">Parliamone</h2>
+      <p style="margin-bottom: 2rem; color: #9ca3af;">Scopri come posso aiutare il tuo team</p>
+      <a href="mailto:info@omaramato.com" class="btn-primary">Contattami</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Omar Amato</p>
+    </div>
+  </footer>
+</body>
+</html>

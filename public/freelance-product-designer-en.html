@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script>
+    (function() {
+      const userLanguage = localStorage.getItem('user-language');
+      if (userLanguage === 'it') {
+        window.location.href = '/freelance-product-designer.html';
+        return;
+      }
+      if (!userLanguage) {
+        fetch('https://ipapi.co/json/')
+          .then(res => res.json())
+          .then(data => {
+            const country = data.country_code;
+            if (country === 'IT') {
+              localStorage.setItem('user-language', 'it');
+              window.location.href = '/freelance-product-designer.html';
+            } else {
+              localStorage.setItem('user-language', 'en');
+            }
+          })
+          .catch(() => {
+            const browserLang = navigator.language.toLowerCase();
+            if (browserLang.startsWith('it')) {
+              localStorage.setItem('user-language', 'it');
+              window.location.href = '/freelance-product-designer.html';
+            } else {
+              localStorage.setItem('user-language', 'en');
+            }
+          });
+      }
+    })();
+    
+    function switchLanguage(lang, targetUrl) {
+      localStorage.setItem('user-language', lang);
+      window.location.href = targetUrl;
+    }
+  </script>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E75LV405L0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E75LV405L0');
+  </script>
+  
+  <title>Freelance Product Designer (Contractor) for B2B MVP | Omar Amato</title>
+  <meta name="description" content="Freelance Product Designer contractor for B2B MVP and dashboard design. End-to-end design in 10-30 days: research, wireframes, UI Figma dev-ready.">
+  <meta name="keywords" content="Freelance Product Designer, Contractor design, MVP design, B2B dashboard design, freelance designer">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://omaramato.com/freelance-product-designer-en.html">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://omaramato.com/freelance-product-designer-en.html">
+  <meta property="og:title" content="Freelance Product Designer (Contractor) for B2B MVP">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="it_IT">
+  
+  <link rel="alternate" hreflang="en" href="https://omaramato.com/freelance-product-designer-en.html">
+  <link rel="alternate" hreflang="it" href="https://omaramato.com/freelance-product-designer.html">
+  <link rel="alternate" hreflang="x-default" href="https://omaramato.com/freelance-product-designer-en.html">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #0a0a0a;
+      color: #e5e7eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(5, 7, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      z-index: 1000;
+      padding: 1rem;
+    }
+    
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #8b5cf6;
+      text-decoration: none;
+    }
+    
+    .lang-button {
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      background: transparent;
+      color: #e5e7eb;
+      padding: 0.375rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+    
+    .lang-button:hover {
+      background: #8b5cf6;
+      color: #fff;
+    }
+    
+    main {
+      padding-top: 80px;
+      min-height: calc(100vh - 80px);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .back-button {
+      padding: 2rem 0 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #8b5cf6;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      background: none;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    
+    .back-button:hover {
+      color: #8b7fdb;
+      transform: translateX(-4px);
+    }
+    
+    .hero {
+      padding: 3rem 0 2rem;
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 100%);
+    }
+    
+    .hero h1 {
+      font-size: clamp(1.875rem, 5vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: #d1d5db;
+      max-width: 90%;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    
+    .features-section {
+      padding: 3rem 0;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    
+    .features-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .feature-card {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #8b5cf6;
+    }
+    
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+    
+    .process-section {
+      padding: 3rem 0;
+    }
+    
+    .process-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .process-step {
+      display: flex;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-left: 2px solid rgba(139, 92, 246, 0.3);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .process-step:last-child {
+      border-left: none;
+      padding-bottom: 0;
+    }
+    
+    .process-step::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 0;
+      width: 14px;
+      height: 14px;
+      background: #8b5cf6;
+      border-radius: 50%;
+      border: 3px solid #0a0a0a;
+    }
+    
+    .process-step h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #8b5cf6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .process-step p {
+      color: #d1d5db;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    .pricing-section {
+      padding: 3rem 0;
+      background: rgba(139, 92, 246, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .pricing-section h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    
+    .pricing-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #8b5cf6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pricing-period {
+      color: #9ca3af;
+      font-size: 1rem;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #8b5cf6;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    
+    .cta-button:hover {
+      background: #8b7fdb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+    
+    .faq-section {
+      padding: 3rem 0;
+    }
+    
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      padding-bottom: 1.5rem;
+    }
+    
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    
+    .faq-question {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-answer {
+      color: #d1d5db;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    footer {
+      background: #0a0a0a;
+      border-top: 1px solid rgba(139, 92, 246, 0.1);
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .footer-content p {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 2rem;
+      }
+      
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      
+      .pricing-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">OA</a>
+      <button class="lang-button" onclick="switchLanguage('it', '/freelance-product-designer.html')">IT</button>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      <button class="back-button" onclick="window.history.back()">← Back</button>
+      
+      <section class="hero">
+        <h1>Product Designer Contractor Mid-Term</h1>
+        <p class="subtitle">Intensive engagement 5 days/week for 3-6 months. Full-time execution: research, UI system, iterative prototypes for scaling B2B products.</p>
+      </section>
+      
+      <section class="features-section">
+        <h2 class="section-title">What's Included</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Discovery + User Research</h3>
+            <p>Stakeholder analysis, user personas, user flows and competitive research to inform design strategy.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Wireframes + UI Figma</h3>
+            <p>Low-fidelity wireframes, high-fidelity mockups and complete UI system. Everything dev-ready in Figma with detailed specs.</p>
+          </div>
+          <div class="feature-card">
+            <h3>2 Rounds of Iterations</h3>
+            <p>2 cycles of feedback and revisions with your team. Rapid adjustments to reach perfection.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Dev-Ready Handoff</h3>
+            <p>Complete documentation, design specs, component library and support during handoff to your developers.</p>
+          </div>
+          <div class="feature-card">
+            <h3>30 Days Post-Launch</h3>
+            <p>Support for 30 days after launch. Minor adjustments and fixes included at no extra cost.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Fast Execution</h3>
+            <p>Quick timeline: 10-30 days depending on complexity. Ideal for MVP and time-sensitive sprints.</p>
+          </div>
+        </div>
+      </section>
+      
+      <section class="process-section">
+        <h2 class="section-title">How It Works</h2>
+        <div class="process-timeline">
+          <div class="process-step">
+            <div>
+              <h4>Step 1: Discovery Call</h4>
+              <p>Kickoff to understand your product, vision, target users, timeline and expected deliverables. We define exact scope.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 2: Research & Wireframes</h4>
+              <p>User research, competitive analysis and low-fidelity wireframes to validate structure before visual design.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 3: High-Fidelity Design</h4>
+              <p>Detailed UI mockups in Figma with complete design system. 2 rounds of feedback and iterations included.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 4: Developer Handoff</h4>
+              <p>Complete documentation, design specs, component library and video walkthrough for your development team.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 5: Post-Launch Support</h4>
+              <p>30 days of support for minor adjustments. We're here to ensure the final product matches the design.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <section class="pricing-section">
+        <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; margin-right: 8px; vertical-align: middle;"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="4" r="1"></circle><circle cx="5" cy="20" r="1"></circle><path d="M12 13v-1M6 18l5-5m7-7l-5 5"></path></svg>Engagement Investment</h3>
+        <p style="color: #d1d5db; margin-top: 1rem; font-size: 0.95rem;">Intensive engagement 5 days/week for 3-6 months. Includes daily standup, monthly reports, design system evolution, 4+ iterations/month. Contact me for a quote.</p>
+        <a href="https://calendly.com/omaramato/30min" class="cta-button" target="_blank">Book a Call</a>
+      </section>
+      
+      <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <div class="faq-question">How long does a project take?</div>
+          <div class="faq-answer">It depends on complexity: 10-20 days for simple MVP, 20-30+ days for complex B2B dashboards. I'll give you a precise estimate after the discovery call.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Are revisions included?</div>
+          <div class="faq-answer">Yes, 2 rounds of iterations are included. Extra revisions beyond that are available upon request.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you work under NDA?</div>
+          <div class="faq-answer">Absolutely. I can sign NDA for confidential projects. All work remains strictly private unless you want anonymized case studies.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I customize the package?</div>
+          <div class="faq-answer">Of course! The 3 packages are base offerings. I can customize scope, timeline and price based on your specific needs.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How do I pay?</div>
+          <div class="faq-answer">50% deposit to start, 50% on completion. I accept SEPA bank transfer and Stripe. Detailed invoice provided.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Antonino Omar Amato. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/privacy.html">Privacy</a>
+        <a href="/cookies.html">Cookies</a>
+        <a href="mailto:hello@omaramato.com">Email</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

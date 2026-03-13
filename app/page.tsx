@@ -1,29 +1,28 @@
-import { Navbar } from "@/components/navbar"
+import dynamic from "next/dynamic"
+import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
-import { HeroGrid } from "@/components/hero-grid"
-import { LookingForSection } from "@/components/looking-for-section"
-import { ServicesSection } from "@/components/services-section"
-import { PortfolioSection } from "@/components/portfolio-section"
-import { ExperienceSection } from "@/components/experience-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
-import { AboutSection } from "@/components/about-section"
-import { ContactSection } from "@/components/contact-section"
 import { Footer } from "@/components/footer"
 
-export default function HomePage() {
+// Lazy load sections below the fold for faster initial page load
+const AboutSection = dynamic(() => import("@/components/about-section").then(m => ({ default: m.AboutSection })))
+const PortfolioSection = dynamic(() => import("@/components/portfolio-section").then(m => ({ default: m.PortfolioSection })))
+const ExperienceSection = dynamic(() => import("@/components/experience-section").then(m => ({ default: m.ExperienceSection })))
+const TestimonialsSection = dynamic(() => import("@/components/testimonials-section").then(m => ({ default: m.TestimonialsSection })))
+const ContactSection = dynamic(() => import("@/components/contact-section").then(m => ({ default: m.ContactSection })))
+
+export default function Page() {
   return (
-    <main className="relative z-10">
-      <HeroGrid />
-      <Navbar />
-      <HeroSection />
-      <LookingForSection />
-      <ServicesSection />
-      <PortfolioSection />
-      <ExperienceSection />
-      <TestimonialsSection />
-      <AboutSection />
-      <ContactSection />
+    <div className="min-h-screen">
+      <Header />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <PortfolioSection />
+        <ExperienceSection />
+        <TestimonialsSection />
+        <ContactSection />
+      </main>
       <Footer />
-    </main>
+    </div>
   )
 }

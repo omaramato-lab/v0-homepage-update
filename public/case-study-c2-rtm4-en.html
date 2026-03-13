@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C2 RTM-4 Case Study | Omar Amato - Fractional Designer</title>
+  <style>
+    /* CSS Variables for C2 RTM-4 (Purple theme) */
+    :root {
+      --color-primary: #6c5ce7;
+      --color-primary-dark: #5b4bc4;
+      --color-primary-rgb: 108, 92, 231;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      background: #0a0a0a;
+      color: #e5e7eb;
+    }
+    
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    
+    /* Password Gate */
+    #password-gate {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    
+    #password-gate.hidden { display: none; }
+    
+    .password-modal {
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      border-radius: 16px;
+      padding: 3rem;
+      max-width: 450px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(108, 92, 231, 0.2);
+    }
+    
+    .password-modal h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+    
+    .password-modal p {
+      color: rgba(229, 231, 235, 0.7);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    
+    .password-input-wrapper {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    
+    .password-input-wrapper input {
+      flex: 1;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(108, 92, 231, 0.3);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .password-input-wrapper input:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      background: rgba(255, 255, 255, 0.08);
+    }
+    
+    .password-input-wrapper button {
+      padding: 1rem 2rem;
+      background: var(--color-primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .password-input-wrapper button:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+    }
+    
+    .password-error {
+      color: #ef4444;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+    }
+    
+    .password-error.visible { display: block; }
+    
+    /* Header/Navbar */
+    header {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .logo { font-size: 1.5rem; font-weight: 700; color: #fff; text-decoration: none; }
+    
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover { color: var(--color-primary); }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(108, 92, 231, 0.1);
+      border: 1px solid rgba(108, 92, 231, 0.3);
+      border-radius: 8px;
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .back-button:hover {
+      background: rgba(108, 92, 231, 0.2);
+      transform: translateX(-4px);
+    }
+    
+    .back-button svg { width: 1.25rem; height: 1.25rem; }
+    
+    /* Hero Section with Side-by-Side Layout */
+    .hero { padding: 4rem 0 5rem; }
+    
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+    }
+    
+    .hero-content { text-align: left; }
+    
+    .hero-content h1 {
+      text-align: left;
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+      text-align: left;
+      margin: 0 0 2rem 0;
+      max-width: 100%;
+      font-size: 1.125rem;
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.7;
+    }
+    
+    .hero-image-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .hero-image {
+      max-width: 380px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(108, 92, 231, 0.15));
+    }
+    
+    @media (min-width: 768px) { .hero-image { max-width: 400px; } }
+    @media (min-width: 1024px) { .hero-image { max-width: 450px; } }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+      text-align: center;
+    }
+    
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: #fff;
+      text-align: center;
+    }
+    
+    .highlight { color: var(--color-primary); }
+    
+    /* Quick Facts Cards Grid */
+    .quick-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      max-width: 100%;
+      margin-top: 3rem;
+    }
+    
+    .quick-fact-card {
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(91, 75, 196, 0.05));
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-fact-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.15);
+    }
+    
+    .quick-fact-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .quick-fact-text {
+      font-size: 0.875rem;
+      line-height: 1.4;
+      color: rgba(229, 231, 235, 0.9);
+    }
+    
+    .quick-fact-text strong { color: #fff; }
+    
+    /* Sections */
+    section {
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .metric-card {
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(91, 75, 196, 0.05));
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .metric-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(108, 92, 231, 0.2);
+    }
+    
+    .metric-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+    
+    .metric-label {
+      font-size: 1rem;
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.5;
+    }
+    
+    /* Process Steps Design */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .process-step {
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.12), rgba(91, 75, 196, 0.06));
+      border-left: 4px solid var(--color-primary);
+      border-radius: 8px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .process-step:hover {
+      box-shadow: 0 12px 32px rgba(108, 92, 231, 0.2);
+      border-left-color: var(--color-primary-dark);
+      transform: translateY(-4px);
+    }
+    
+    .step-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--color-primary);
+      min-width: 4rem;
+    }
+    
+    .step-content h3 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+    }
+    
+    .step-content p {
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .process-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .step-number { margin-bottom: 1rem; }
+    }
+    
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .feature-card {
+      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1), rgba(91, 75, 196, 0.05));
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      border-color: var(--color-primary);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(108, 92, 231, 0.2);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-card h3 {
+      color: #fff;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+    
+    .feature-card p {
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.6;
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 4rem 0;
+    }
+    
+    .cta-section h2 { margin-bottom: 1rem; }
+    
+    .cta-section p {
+      font-size: 1.125rem;
+      color: rgba(229, 231, 235, 0.8);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--color-primary);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      background: var(--color-primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(108, 92, 231, 0.3);
+    }
+    
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      padding: 3rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    footer p {
+      color: rgba(229, 231, 235, 0.6);
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Gate -->
+  <div id="password-gate">
+    <div class="password-modal">
+      <h2>🔒 Protected Case Study</h2>
+      <p>This case study contains confidential project information. Please enter the password to continue.</p>
+      <div class="password-input-wrapper">
+        <input type="password" id="password-input" placeholder="Enter password" />
+        <button onclick="checkPassword()">Unlock</button>
+      </div>
+      <div id="password-error" class="password-error">Incorrect password. Please try again.</div>
+    </div>
+  </div>
+
+  <!-- Main Content (hidden until password is correct) -->
+  <div id="main-content" style="display: none;">
+    <!-- Header/Navbar -->
+    <header>
+      <nav>
+        <a href="/" class="logo">Omar Amato</a>
+        <button class="back-button" onclick="history.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back
+        </button>
+      </nav>
+    </header>
+
+    <!-- Hero Section with Side-by-Side Layout -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1>C2 RTM-4 <span class="highlight">Device Monitoring</span> Platform</h1>
+            
+            <p class="hero-subtitle">
+              Control room application for highway device monitoring. Led 4-person design team introducing hypothesis-driven design methodology and comprehensive design system for real-time dashboard customization.
+            </p>
+          </div>
+          
+          <div class="hero-image-wrapper">
+            <div class="hero-image">
+              <img src="/images/c2-rtm4-hero.png" alt="C2 RTM-4 Control Panel">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Quick Facts as Cards Below -->
+        <div class="quick-facts-grid">
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">🏢</span>
+            <span class="quick-fact-text"><strong>Client:</strong> Movyon - Autostrade per l'Italia</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">👤</span>
+            <span class="quick-fact-text"><strong>Role:</strong> Lead Product Designer (4 designers team)</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">📅</span>
+            <span class="quick-fact-text"><strong>Duration:</strong> 4 months</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">🎯</span>
+            <span class="quick-fact-text"><strong>Focus:</strong> Design System, Control Room UX</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics">
+      <div class="container">
+        <h2>Impact & Results</h2>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-number">4</div>
+            <div class="metric-label">Designers Team Led</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">100%</div>
+            <div class="metric-label">Company-wide Design System Adoption</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">50+</div>
+            <div class="metric-label">Real-time Monitoring Dashboards</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design Process Section -->
+    <section class="process">
+      <div class="container">
+        <h2>Design Process</h2>
+        
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Discovery & Hypothesis Formation</h3>
+              <p>Introduced hypothesis-driven design methodology. Conducted stakeholder interviews with control room operators to identify pain points in device monitoring workflows and dashboard customization needs.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>Design System Foundation</h3>
+              <p>Created comprehensive design system with reusable components, established visual language, and defined interaction patterns for consistent user experience across all monitoring interfaces.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Team Leadership & Coordination</h3>
+              <p>Led 4-person design team through collaborative design sprints, established design review processes, and mentored junior designers on hypothesis testing and validation methods.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <h3>Real-time Dashboard Design</h3>
+              <p>Designed customizable dashboard interfaces for real-time device monitoring, optimized for videowall displays, with intuitive data visualization and alert management systems.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">05</div>
+            <div class="step-content">
+              <h3>Testing & Iteration</h3>
+              <p>Conducted usability testing with control room operators, validated design hypotheses with quantitative metrics, and iterated based on operational feedback for optimal performance.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Innovations Section -->
+    <section class="innovations">
+      <div class="container">
+        <h2>Key Innovations</h2>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🧪</div>
+            <h3>Hypothesis-Driven Design</h3>
+            <p>Pioneered data-driven design approach with testable hypotheses, validation metrics, and iterative improvement cycles for evidence-based decision making.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">🎨</div>
+            <h3>Company-wide Design System</h3>
+            <p>Established scalable design system adopted across entire organization, ensuring consistency and accelerating development of new monitoring features.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Videowall Optimization</h3>
+            <p>Designed specialized interfaces for multi-screen videowall environments with optimized information hierarchy and visual clarity for 24/7 operations.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Real-time Data Visualization</h3>
+            <p>Created intuitive dashboard components for monitoring thousands of highway devices simultaneously with instant alert systems and status indicators.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Interested in Similar Projects?</h2>
+        <p>Let's discuss how design leadership and systems thinking can transform your product operations.</p>
+        <a href="/#contact" class="cta-button">
+          Get in Touch
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Omar Amato. All rights reserved.</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    const AUTH_KEY = 'case_study_authenticated';
+    
+    // Check if already authenticated
+    if (localStorage.getItem(AUTH_KEY) === 'true') {
+      document.getElementById('password-gate').classList.add('hidden');
+      document.getElementById('main-content').style.display = 'block';
+    }
+    
+    function checkPassword() {
+      const input = document.getElementById('password-input');
+      const error = document.getElementById('password-error');
+      const gate = document.getElementById('password-gate');
+      const mainContent = document.getElementById('main-content');
+      
+      if (input.value === 'topsecret') {
+        localStorage.setItem(AUTH_KEY, 'true');
+        gate.classList.add('hidden');
+        mainContent.style.display = 'block';
+        error.classList.remove('visible');
+      } else {
+        error.classList.add('visible');
+        input.value = '';
+        input.focus();
+      }
+    }
+    
+    document.getElementById('password-input').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+  </script>
+</body>
+</html>
