@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PagineBianche In Memoria - Case Study | Omar Amato</title>
+  <meta name="description" content="Complete redesign of funeral services platform for Italiaonline.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #48cae4;
+      --primary-dark: #00b4d8;
+      --background: #0a0a0a;
+      --foreground: #fafafa;
+      --muted: #a1a1aa;
+      --border: #27272a;
+      --card: #18181b;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      line-height: 1.6;
+    }
+    
+    .password-gate { position: fixed; inset: 0; background: var(--background); display: flex; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+    .password-gate.hidden { display: none; }
+    .password-card { background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 2.5rem; max-width: 400px; width: 100%; text-align: center; }
+    .lock-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; background: rgba(72, 202, 228, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .lock-icon svg { width: 24px; height: 24px; color: var(--primary); }
+    .password-card h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .password-card p { color: var(--muted); font-size: 0.875rem; margin-bottom: 1.5rem; }
+    .password-input { width: 100%; padding: 0.75rem 1rem; background: var(--background); border: 1px solid var(--border); border-radius: 0.5rem; color: var(--foreground); font-size: 1rem; margin-bottom: 1rem; transition: border-color 0.2s; }
+    .password-input:focus { outline: none; border-color: var(--primary); }
+    .password-btn { width: 100%; padding: 0.75rem 1.5rem; background: var(--primary); color: #0a0a0a; border: none; border-radius: 0.5rem; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+    .password-btn:hover { background: var(--primary-dark); }
+    .password-error { color: #ef4444; font-size: 0.875rem; margin-top: 1rem; opacity: 0; transition: opacity 0.2s; }
+    .password-error.visible { opacity: 1; }
+    
+    header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .header-container { max-width: 1200px; margin: 0 auto; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; }
+    .logo { font-size: 1.25rem; font-weight: 700; color: var(--foreground); text-decoration: none; }
+    .logo span { color: var(--primary); }
+    nav ul { display: flex; gap: 2rem; list-style: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    nav a:hover { color: var(--foreground); }
+    .mobile-menu-btn { display: none; background: none; border: none; color: var(--foreground); cursor: pointer; }
+    @media (max-width: 768px) { nav ul { display: none; } .mobile-menu-btn { display: block; } }
+    
+    main { padding-top: 5rem; }
+    .back-button { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--muted); text-decoration: none; font-size: 0.875rem; padding: 1.5rem; max-width: 1200px; margin: 0 auto; transition: color 0.2s; }
+    .back-button:hover { color: var(--foreground); }
+    
+    .hero { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 968px) { .hero { grid-template-columns: 1fr; gap: 2rem; } }
+    .hero-badge { display: inline-block; padding: 0.5rem 1rem; background: rgba(72, 202, 228, 0.1); border: 1px solid rgba(72, 202, 228, 0.2); border-radius: 2rem; color: var(--primary); font-size: 0.875rem; font-weight: 500; margin-bottom: 1.5rem; }
+    .hero h1 { font-size: 3rem; font-weight: 700; line-height: 1.1; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--primary); }
+    .hero-subtitle { font-size: 1.25rem; color: var(--muted); margin-bottom: 2rem; }
+    .hero-image img { width: 100%; max-width: 500px; height: auto; border-radius: 1rem; animation: float 6s ease-in-out infinite; }
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    
+    .quick-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+    @media (max-width: 640px) { .quick-facts { grid-template-columns: 1fr; } }
+    .fact-card { background: var(--card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.25rem; }
+    .fact-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .fact-value { font-size: 1rem; font-weight: 600; color: var(--foreground); }
+    
+    .metrics-section { background: linear-gradient(180deg, var(--card) 0%, var(--background) 100%); padding: 5rem 1.5rem; }
+    .metrics-container { max-width: 1200px; margin: 0 auto; }
+    .section-header { text-align: center; margin-bottom: 3rem; }
+    .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .section-header p { color: var(--muted); }
+    .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    @media (max-width: 768px) { .metrics-grid { grid-template-columns: 1fr; } }
+    .metric-card { background: var(--background); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .metric-card:hover { border-color: var(--primary); transform: translateY(-4px); }
+    .metric-value { font-size: 3rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
+    .metric-label { font-size: 1rem; color: var(--muted); }
+    
+    .process-section { padding: 5rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    .process-timeline { position: relative; margin-top: 3rem; }
+    .process-timeline::before { content: ''; position: absolute; left: 24px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+    @media (min-width: 768px) { .process-timeline::before { left: 50%; transform: translateX(-50%); } }
+    .process-step { position: relative; padding-left: 60px; padding-bottom: 3rem; }
+    @media (min-width: 768px) { .process-step { padding-left: 0; display: grid; grid-template-columns: 1fr 48px 1fr; gap: 2rem; align-items: start; } .process-step:nth-child(odd) .step-content { grid-column: 1; text-align: right; } .process-step:nth-child(odd) .step-number { grid-column: 2; } .process-step:nth-child(odd) .step-details { grid-column: 3; } .process-step:nth-child(even) .step-content { grid-column: 3; order: 2; } .process-step:nth-child(even) .step-number { grid-column: 2; order: 1; } .process-step:nth-child(even) .step-details { grid-column: 1; text-align: right; order: 0; } }
+    .step-number { position: absolute; left: 0; width: 48px; height: 48px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; color: #0a0a0a; z-index: 1; }
+    @media (min-width: 768px) { .step-number { position: relative; left: auto; } }
+    .step-content h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .step-content p { color: var(--muted); font-size: 0.875rem; }
+    .step-details { display: none; }
+    @media (min-width: 768px) { .step-details { display: block; } }
+    
+    .features-section { background: var(--card); padding: 5rem 1.5rem; }
+    .features-container { max-width: 1200px; margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    @media (max-width: 768px) { .features-grid { grid-template-columns: 1fr; } }
+    .feature-card { background: var(--background); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; transition: border-color 0.3s; }
+    .feature-card:hover { border-color: var(--primary); }
+    .feature-icon { width: 48px; height: 48px; background: rgba(72, 202, 228, 0.1); border-radius: 0.75rem; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .feature-icon svg { width: 24px; height: 24px; color: var(--primary); }
+    .feature-card h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .feature-card p { color: var(--muted); font-size: 0.875rem; }
+    
+    .cta-section { padding: 5rem 1.5rem; text-align: center; }
+    .cta-container { max-width: 600px; margin: 0 auto; }
+    .cta-container h2 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; }
+    .cta-container p { color: var(--muted); margin-bottom: 2rem; }
+    .cta-btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem; background: var(--primary); color: #0a0a0a; text-decoration: none; border-radius: 0.5rem; font-weight: 500; transition: background 0.2s; }
+    .cta-btn:hover { background: var(--primary-dark); }
+    
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; }
+    footer p { color: var(--muted); font-size: 0.875rem; }
+  </style>
+</head>
+<body>
+  <div class="password-gate" id="passwordGate">
+    <div class="password-card">
+      <div class="lock-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg></div>
+      <h2>Protected Content</h2>
+      <p>This case study contains confidential information. Please enter the password to continue.</p>
+      <form id="passwordForm" onsubmit="event.preventDefault(); checkPassword();"><input type="password" class="password-input" id="passwordInput" placeholder="Enter password" autocomplete="off"><button type="submit" class="password-btn">Access Case Study</button></form>
+      <p class="password-error" id="passwordError">Incorrect password. Please try again.</p>
+    </div>
+  </div>
+  
+  <header><div class="header-container"><a href="/" class="logo">Omar<span>.</span></a><nav><ul><li><a href="/#services">Services</a></li><li><a href="/#portfolio">Portfolio</a></li><li><a href="/#experience">Experience</a></li><li><a href="/#contact">Contact</a></li></ul></nav><button class="mobile-menu-btn" aria-label="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg></button></div></header>
+  
+  <main>
+    <a href="/#portfolio" class="back-button"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>Back to Portfolio</a>
+    
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge">Italiaonline - PagineBianche</span>
+        <h1>In Memoria <span>Funeral Services</span></h1>
+        <p class="hero-subtitle">Digital platform for searching and booking funeral services, focusing on empathetic and accessible user experience.</p>
+        <div class="quick-facts"><div class="fact-card"><p class="fact-label">Duration</p><p class="fact-value">6 months</p></div><div class="fact-card"><p class="fact-label">Role</p><p class="fact-value">Senior UX Designer</p></div><div class="fact-card"><p class="fact-label">Focus</p><p class="fact-value">User Research</p></div></div>
+      </div>
+      <div class="hero-image"><img src="/images/consolle.png" alt="PagineBianche In Memoria Platform"></div>
+    </section>
+    
+    <section class="metrics-section"><div class="metrics-container"><div class="section-header"><h2>Measurable Results</h2><p>Key metrics achieved through the redesign</p></div><div class="metrics-grid"><div class="metric-card"><p class="metric-value">25</p><p class="metric-label">User Testing Sessions</p></div><div class="metric-card"><p class="metric-value">4</p><p class="metric-label">Focus Groups Conducted</p></div><div class="metric-card"><p class="metric-value">+45%</p><p class="metric-label">Usability Improvement</p></div></div></div></section>
+    
+    <section class="process-section"><div class="section-header"><h2>Design Process</h2><p>User-centered approach for a sensitive topic</p></div><div class="process-timeline"><div class="process-step"><div class="step-number">1</div><div class="step-content"><h3>User Research</h3><p>In-depth interviews and focus groups to understand emotional and practical needs during difficult moments.</p></div><div class="step-details"></div></div><div class="process-step"><div class="step-number">2</div><div class="step-content"><h3>Service Design</h3><p>Customer journey mapping to identify critical touchpoints and improvement opportunities.</p></div><div class="step-details"></div></div><div class="process-step"><div class="step-number">3</div><div class="step-content"><h3>UI Prototyping</h3><p>Interface prototyping with focus on accessibility, clarity and empathetic tone.</p></div><div class="step-details"></div></div><div class="process-step"><div class="step-number">4</div><div class="step-content"><h3>Merchant Portal</h3><p>Portal design for funeral operators with quote management and service visibility.</p></div><div class="step-details"></div></div><div class="process-step"><div class="step-number">5</div><div class="step-content"><h3>Validation</h3><p>Usability testing with real users to validate solutions and iterate on design.</p></div><div class="step-details"></div></div></div></section>
+    
+    <section class="features-section"><div class="features-container"><div class="section-header"><h2>Key Innovations</h2><p>Solutions designed for a sensitive experience</p></div><div class="features-grid"><div class="feature-card"><div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg></div><h3>Multi-Filter Search</h3><p>Advanced search system to find services by location, type and budget with relevant results.</p></div><div class="feature-card"><div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg></div><h3>Guided Quote</h3><p>Step-by-step wizard to request quotes easily, guiding users through their choices.</p></div><div class="feature-card"><div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg></div><h3>Online Obituaries</h3><p>Dedicated section to publish and share obituaries with digital condolence messages.</p></div><div class="feature-card"><div class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div><h3>Merchant Portal</h3><p>Dedicated portal for funeral operators to manage profile, quotes and platform visibility.</p></div></div></div></section>
+    
+    <section class="cta-section"><div class="cta-container"><h2>Want to discuss your project?</h2><p>I can help you design sensitive and user-centered digital experiences.</p><a href="/#contact" class="cta-btn">Get in Touch<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg></a></div></section>
+  </main>
+  
+  <footer><p>&copy; 2024 Omar Amato. All rights reserved.</p></footer>
+  
+  <script>
+    const AUTH_KEY = 'case_study_authenticated';
+    if (localStorage.getItem(AUTH_KEY) === 'true') { document.getElementById('passwordGate').classList.add('hidden'); }
+    function checkPassword() {
+      const input = document.getElementById('passwordInput');
+      const error = document.getElementById('passwordError');
+      const gate = document.getElementById('passwordGate');
+      if (input.value === 'topsecret') { localStorage.setItem(AUTH_KEY, 'true'); gate.classList.add('hidden'); }
+      else { error.classList.add('visible'); input.value = ''; setTimeout(() => error.classList.remove('visible'), 3000); }
+    }
+  </script>
+</body>
+</html>

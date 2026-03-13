@@ -1,0 +1,29 @@
+{
+  "rewrites": [
+    {
+      "source": "/fractional-head-of-design",
+      "destination": "/fractional-head-of-design.html"
+    },
+    {
+      "source": "/ux-audit",
+      "destination": "/ux-audit.html"
+    },
+    {
+      "source": "/landing-page-design",
+      "destination": "/landing-page-design.html"
+    },
+    {
+      "source": "/fractional-head-of-design-en",
+      "destination": "/fractional-head-of-design-en.html"
+    },
+    {
+      "source": "/ux-audit-en",
+      "destination": "/ux-audit-en.html"
+    },
+    {
+      "source": "/landing-page-design-en",
+      "destination": "/landing-page-design-en.html"
+    }
+  ],
+  "cleanUrls": true
+}

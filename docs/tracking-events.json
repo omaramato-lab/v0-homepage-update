@@ -1,0 +1,116 @@
+{
+  "events": [
+    {
+      "name": "language_switch",
+      "category": "User Interaction",
+      "description": "Fired when user switches between Italian and English",
+      "parameters": {
+        "language": "it | en"
+      },
+      "implementation": "useAnalytics().trackLanguageSwitch(language)",
+      "value": null
+    },
+    {
+      "name": "calendly_click",
+      "category": "Conversion",
+      "description": "Fired when user clicks Calendly booking button",
+      "parameters": {
+        "location": "hero | services | contact | footer"
+      },
+      "implementation": "useAnalytics().trackCalendlyClick(location)",
+      "value": 100
+    },
+    {
+      "name": "email_click",
+      "category": "Conversion",
+      "description": "Fired when user clicks email contact button",
+      "parameters": {
+        "location": "hero | services | contact | footer"
+      },
+      "implementation": "useAnalytics().trackEmailClick(location)",
+      "value": 50
+    },
+    {
+      "name": "portfolio_view",
+      "category": "Engagement",
+      "description": "Fired when user views portfolio case study",
+      "parameters": {
+        "project_name": "C2 RTM-4 | Rekord AMRC | BSB | SIV | etc."
+      },
+      "implementation": "useAnalytics().trackPortfolioView(projectName)",
+      "value": 10
+    },
+    {
+      "name": "service_page_visit",
+      "category": "Engagement",
+      "description": "Fired when user visits service detail page",
+      "parameters": {
+        "service_name": "fractional-head-of-design | ux-audit | landing-page-design"
+      },
+      "implementation": "useAnalytics().trackServicePageVisit(serviceName)",
+      "value": 25
+    },
+    {
+      "name": "form_submit",
+      "category": "Conversion",
+      "description": "Fired when user submits contact form",
+      "parameters": {
+        "form_type": "contact | newsletter | other"
+      },
+      "implementation": "useAnalytics().trackFormSubmit(formType)",
+      "value": 75
+    },
+    {
+      "name": "scroll_depth",
+      "category": "Engagement",
+      "description": "Fired at scroll milestones: 25%, 50%, 75%, 100%",
+      "parameters": {
+        "depth": "25 | 50 | 75 | 100"
+      },
+      "implementation": "useAnalytics().trackScrollDepth(depth)",
+      "value": null
+    },
+    {
+      "name": "section_view",
+      "category": "Engagement",
+      "description": "Fired when specific section enters viewport",
+      "parameters": {
+        "section_name": "services | portfolio | experience | testimonials | about | contact"
+      },
+      "implementation": "useAnalytics().trackSectionView(sectionName)",
+      "value": null
+    }
+  ],
+  "conversion_goals": [
+    {
+      "goal_name": "Book a Call",
+      "event_name": "calendly_click",
+      "value": 100,
+      "description": "Primary conversion - user books consultation"
+    },
+    {
+      "goal_name": "Contact via Email",
+      "event_name": "email_click",
+      "value": 50,
+      "description": "Secondary conversion - user initiates email contact"
+    },
+    {
+      "goal_name": "Form Submission",
+      "event_name": "form_submit",
+      "value": 75,
+      "description": "User submits contact form"
+    },
+    {
+      "goal_name": "Service Page Engagement",
+      "event_name": "service_page_visit",
+      "value": 25,
+      "description": "User shows interest by visiting service details"
+    },
+    {
+      "goal_name": "Portfolio Engagement",
+      "event_name": "portfolio_view",
+      "value": 10,
+      "description": "User explores work samples"
+    }
+  ]
+}

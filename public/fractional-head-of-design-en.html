@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <script>
+    (function() {
+      const userLanguage = localStorage.getItem('user-language');
+      if (userLanguage === 'it') {
+        window.location.href = '/fractional-head-of-design.html';
+        return;
+      }
+      localStorage.setItem('user-language', 'en');
+    })();
+    
+    function switchLanguage(lang, targetUrl) {
+      localStorage.setItem('user-language', lang);
+      window.location.href = targetUrl;
+    }
+  </script>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E75LV405L0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-E75LV405L0');
+  </script>
+  
+  <title>Fractional Head of Design / Product Design for Agencies | Omar Amato</title>
+  <meta name="description" content="Fractional Head of Design / Product Design for digital agencies. Strategic design leadership, design system governance, team mentoring. White-label services.">
+  <meta name="keywords" content="Fractional Head of Design, Product Design Leadership, Design Leadership for agencies, white label design, B2B design partner">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://omaramato.com/fractional-head-of-design-en.html">
+  
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://omaramato.com/fractional-head-of-design-en.html">
+  <meta property="og:title" content="Fractional Head of Design / Product Design for Agencies">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="it_IT">
+  
+  <link rel="alternate" hreflang="en" href="https://omaramato.com/fractional-head-of-design-en.html">
+  <link rel="alternate" hreflang="it" href="https://omaramato.com/fractional-head-of-design.html">
+  <link rel="alternate" hreflang="x-default" href="https://omaramato.com/fractional-head-of-design-en.html">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #0a0a0a;
+      color: #e5e7eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      z-index: 1000;
+      padding: 1rem;
+    }
+    
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #8b5cf6;
+      text-decoration: none;
+    }
+    
+    .lang-button {
+      border: 1px solid rgba(139, 92, 246, 0.5);
+      background: transparent;
+      color: #e5e7eb;
+      padding: 0.375rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+    
+    .lang-button:hover {
+      background: #8b5cf6;
+      color: #fff;
+    }
+    
+    main {
+      padding-top: 80px;
+      min-height: calc(100vh - 80px);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    .back-button {
+      padding: 2rem 0 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #8b5cf6;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      background: none;
+      border: none;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    
+    .back-button:hover {
+      color: #8b7fdb;
+      transform: translateX(-4px);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 3rem 0 2rem;
+      background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, transparent 100%);
+    }
+    
+    .hero h1 {
+      font-size: clamp(1.875rem, 5vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: #d1d5db;
+      max-width: 90%;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    
+    /* Features Grid */
+    .features-section {
+      padding: 3rem 0;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    
+    .features-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .feature-card {
+      background: rgba(139, 92, 246, 0.05);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      background: rgba(139, 92, 246, 0.1);
+      border-color: rgba(139, 92, 246, 0.4);
+      transform: translateY(-2px);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #8b5cf6;
+    }
+    
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+    
+    /* Process Section */
+    .process-section {
+      padding: 3rem 0;
+    }
+    
+    .process-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .process-step {
+      display: flex;
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+      border-left: 2px solid rgba(139, 92, 246, 0.3);
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .process-step:last-child {
+      border-left: none;
+      padding-bottom: 0;
+    }
+    
+    .process-step::before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      top: 0;
+      width: 14px;
+      height: 14px;
+      background: #8b5cf6;
+      border-radius: 50%;
+      border: 3px solid #0a0a0a;
+    }
+    
+    .process-step h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #8b5cf6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .process-step p {
+      color: #d1d5db;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    /* Pricing Box */
+    .pricing-section {
+      padding: 3rem 0;
+      background: rgba(139, 92, 246, 0.05);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+    
+    .pricing-section h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    
+    .pricing-amount {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #8b5cf6;
+      margin-bottom: 0.5rem;
+    }
+    
+    .pricing-period {
+      color: #9ca3af;
+      font-size: 1rem;
+    }
+    
+    /* CTA Button */
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #8b5cf6;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: all 0.3s;
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+    
+    .cta-button:hover {
+      background: #8b7fdb;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      padding: 3rem 0;
+    }
+    
+    .faq-item {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.1);
+      padding-bottom: 1.5rem;
+    }
+    
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+    
+    .faq-question {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-answer {
+      color: #d1d5db;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      border-top: 1px solid rgba(139, 92, 246, 0.1);
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+    
+    .footer-content p {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .footer-links a {
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: #e5e7eb;
+    }
+    
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 2rem;
+      }
+      
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+      
+      .pricing-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 3rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">OA</a>
+      <button class="lang-button" onclick="switchLanguage('it', '/fractional-head-of-design.html')">IT</button>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      <button class="back-button" onclick="window.history.back()">← Go Back</button>
+      
+      <!-- Hero -->
+      <section class="hero">
+        <h1>Fractional Head of Design / Product Design</h1>
+        <p class="subtitle">Strategic design leadership for digital agencies and B2B startups. Design system governance, team coordination and product strategy to grow fast without compromising quality.</p>
+      </section>
+      
+      <!-- Features -->
+      <section class="features-section">
+        <h2 class="section-title">What You'll Get</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>Strategic Leadership</h3>
+            <p>Design governance for complex products. I define vision, design strategy and quality standards for your team.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Design System Management</h3>
+            <p>Create and maintain scalable design systems. I ensure visual consistency and accelerate development across products.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Design Review & QA</h3>
+            <p>Systematic review of feature development. I ensure high UX quality before release.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Team Mentoring</h3>
+            <p>Mentor junior and mid-level designers. I elevate skills and maturity of your team.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Product Strategy</h3>
+            <p>Collaborate with product & development. I ensure consistency between strategy, design and implementation.</p>
+          </div>
+          <div class="feature-card">
+            <h3>Dedicated Communication</h3>
+            <p>Dedicated Slack/Teams for constant communication. Immediate access for quick alignments.</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Process -->
+      <section class="process-section">
+        <h2 class="section-title">How It Works</h2>
+        <div class="process-timeline">
+          <div class="process-step">
+            <div>
+              <h4>Step 1: Kickoff</h4>
+              <p>Initial call to understand your products, team, current challenges and strategic goals. We define scope and expectations.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 2: Weekly Alignment</h4>
+              <p>2 fixed weekly meetings for design review, strategic alignment and team support. Slack always open for questions.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 3: Design System Evolution</h4>
+              <p>Create or update your design system. I work with development for consistent implementation.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 4: Mentoring & Growth</h4>
+              <p>Regular sessions with your team. I elevate skills and build design culture in your agency.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div>
+              <h4>Step 5: Measurable Results</h4>
+              <p>Monthly report on design metrics, team growth and results. We adjust strategy based on data.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Pricing -->
+      <section class="pricing-section">
+        <h3><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline-block; margin-right: 8px; vertical-align: middle;"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>Investment</h3>
+        <p style="color: #d1d5db; margin-top: 1rem; font-size: 0.95rem;">Min. 5 days per month. Customizable based on your needs. Contact me for a proposal.</p>
+        <a href="mailto:hello@omaramato.com?subject=Fractional Head of Design" class="cta-button">Book a Free Consultation</a>
+      </section>
+      
+      <!-- FAQ -->
+      <section class="faq-section">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <div class="faq-question">When can I start?</div>
+          <div class="faq-answer">Usually within 1-2 weeks after kickoff. We value speed with quality, so every start is targeted and structured.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I scale up days if I have bigger needs?</div>
+          <div class="faq-answer">Absolutely! We can increase from 5 days to 10, 15 or even full-time based on your needs and priorities.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Will you help me build a design system from scratch?</div>
+          <div class="faq-answer">Yes, I do this regularly. If you don't have a design system, it's priority #1. I create it with your team in a scalable way.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you work with agencies or only startups?</div>
+          <div class="faq-answer">I work with both. Whether you're an agency with B2B clients or a scaling startup, I can support you as Head of Design.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I have direct contact with you?</div>
+          <div class="faq-answer">Yes, dedicated Slack and 2 weekly meetings are included. You have direct contact with me, not intermediaries.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+  
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Antonino Omar Amato. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/ux-audit-en.html">UX Audit</a>
+        <a href="/freelance-product-designer-en.html">Freelance Designer</a>
+        <a href="/landing-page-design-en.html">Landing Page Design</a>
+        <a href="/privacy.html">Privacy</a>
+        <a href="/cookies.html">Cookies</a>
+        <a href="mailto:hello@omaramato.com">Email</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
