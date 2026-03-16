@@ -10,7 +10,7 @@ const nextConfig = {
     maxInactiveAge: 60 * 1000,
     pagesBufferLength: 5,
   },
-  // Force rebuild on deployment - v200
+  // Force rebuild on deployment - v201
   experimental: {
     isrMemoryCacheSize: 0,
   },
