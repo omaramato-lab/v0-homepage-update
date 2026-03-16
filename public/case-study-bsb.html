@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <title>Case Study: BSB Video Manager - Movyon | Omar Amato</title>
+  <meta name="description" content="Case study: Sistema centralizzato di gestione videocamere per il monitoraggio autostradale con dark mode e flussi ottimizzati.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <style>
+    /* Password Gate Styles */
+    .password-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #05070a;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .password-gate.hidden {
+      display: none;
+    }
+    
+    .password-gate-content {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(13, 16, 22, 0.95);
+      border: 1px solid rgba(0, 180, 216, 0.3);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .password-gate-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .password-gate-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      margin-bottom: 0.75rem;
+    }
+    
+    .password-gate-subtitle {
+      font-size: 0.9375rem;
+      color: #9ca3af;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    
+    .password-input-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    
+    .password-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: rgba(5, 7, 10, 0.8);
+      border: 1px solid rgba(0, 180, 216, 0.3);
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+    
+    .password-input:focus {
+      outline: none;
+      border-color: #00b4d8;
+      box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.1);
+    }
+    
+    .password-submit {
+      width: 100%;
+      padding: 0.875rem;
+      background: linear-gradient(135deg, #00b4d8, #0096c7);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    
+    .password-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 180, 216, 0.4);
+    }
+    
+    .password-error {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      color: #ef4444;
+      font-size: 0.875rem;
+    }
+    
+    .password-error.visible {
+      display: block;
+    }
+    
+    /* Unified Design System */
+    :root {
+      --color-accent: #00b4d8;
+      --color-accent-light: #0096c7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #05070a;
+      color: #e5e7eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(5, 7, 10, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #e5e7eb;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+    
+    .nav-list a {
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      font-size: 0.9375rem;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-list a:hover {
+      color: #00b4d8;
+    }
+    
+    .nav-dropdown {
+      position: relative;
+    }
+    
+    .nav-dropdown-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      background: none;
+      border: none;
+      color: rgba(229, 231, 235, 0.8);
+      font-size: 0.9375rem;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-dropdown-btn:hover {
+      color: #00b4d8;
+    }
+    
+    .dropdown-arrow {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+    
+    .nav-dropdown:hover .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .nav-dropdown-content {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 280px;
+      background: rgba(13, 16, 22, 0.98);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 0.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-dropdown:hover .nav-dropdown-content {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    
+    .nav-dropdown-content a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .nav-dropdown-content a:hover {
+      background: rgba(0, 180, 216, 0.1);
+      color: #00b4d8;
+    }
+    
+    .lang-button {
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.3);
+      color: #00b4d8;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .lang-button:hover {
+      background: rgba(0, 180, 216, 0.2);
+    }
+    
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: #e5e7eb;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: rgba(5, 7, 10, 0.98);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+    }
+    
+    .mobile-menu.active {
+      display: block;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .mobile-menu a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(0, 180, 216, 0.1);
+      color: #00b4d8;
+    }
+    
+    .mobile-menu-dropdown-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: none;
+      border: none;
+      color: rgba(229, 231, 235, 0.8);
+      font-size: 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .mobile-menu-dropdown-btn:hover {
+      background: rgba(0, 180, 216, 0.1);
+      color: #00b4d8;
+    }
+    
+    .mobile-dropdown-content {
+      display: none;
+      padding-left: 1rem;
+    }
+    
+    .mobile-dropdown-content.active {
+      display: block;
+    }
+    
+    @media (max-width: 768px) {
+      .desktop-nav {
+        display: none;
+      }
+      
+      .mobile-menu-toggle {
+        display: block;
+      }
+    }
+    
+    /* Main Content */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    
+    /* Back Button */
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      color: #00b4d8;
+      padding: 0.625rem 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9375rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      margin-top: 6rem;
+      margin-bottom: 2rem;
+    }
+    
+    .back-button:hover {
+      background: rgba(0, 180, 216, 0.2);
+      transform: translateX(-4px);
+    }
+    
+    .back-button svg { width: 20px; height: 20px; }
+    
+    /* Hero Section */
+    .hero {
+      padding: 2rem 0 4rem;
+    }
+    
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1px;
+    }
+    
+    .highlight { color: #00b4d8; }
+    
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.7;
+    }
+    
+    .hero-image-wrapper {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .hero-image {
+      max-width: 100%;
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(0, 180, 216, 0.2));
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .hero-image-wrapper {
+        order: -1;
+      }
+    }
+    
+    /* Quick Facts */
+    .quick-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      max-width: 100%;
+      margin-top: 3rem;
+    }
+    
+    .quick-fact-card {
+      background: rgba(0, 180, 216, 0.05);
+      border: 1px solid rgba(0, 180, 216, 0.1);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    
+    .quick-fact-icon { font-size: 1.5rem; }
+    .quick-fact-text { font-size: 0.875rem; color: rgba(229, 231, 235, 0.9); }
+    .quick-fact-text strong { color: #e5e7eb; }
+    
+    /* Metrics Section */
+    .metrics-section {
+      padding: 4rem 0;
+      background: linear-gradient(135deg, rgba(0, 180, 216, 0.05), transparent);
+      border-radius: 24px;
+      margin: 2rem 0;
+    }
+    
+    .metrics-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: #e5e7eb;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    
+    .metric-card {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0, 180, 216, 0.08);
+      border-radius: 16px;
+      border: 1px solid rgba(0, 180, 216, 0.15);
+    }
+    
+    .metric-value {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #00b4d8;
+      margin-bottom: 0.5rem;
+    }
+    
+    .metric-label {
+      font-size: 1rem;
+      color: rgba(229, 231, 235, 0.8);
+    }
+    
+    @media (max-width: 768px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+    }
+    
+    /* Process Steps */
+    .process-section {
+      padding: 4rem 0;
+    }
+    
+    .process-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: #e5e7eb;
+    }
+    
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .process-step {
+      background: linear-gradient(135deg, rgba(0, 180, 216, 0.12), rgba(0, 150, 199, 0.06));
+      border-left: 4px solid #00b4d8;
+      border-radius: 8px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .process-step:hover {
+      box-shadow: 0 12px 32px rgba(0, 180, 216, 0.2);
+      border-left-color: #0096c7;
+      transform: translateY(-4px);
+    }
+    
+    .step-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #00b4d8;
+      min-width: 4rem;
+    }
+    
+    .step-content h3 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+    }
+    
+    .step-content p {
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .process-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .step-number {
+        margin-bottom: 1rem;
+      }
+    }
+    
+    /* Features Section */
+    .features-section {
+      padding: 4rem 0;
+    }
+    
+    .features-section h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 3rem;
+      color: #e5e7eb;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background: rgba(0, 180, 216, 0.05);
+      border: 1px solid rgba(0, 180, 216, 0.1);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      border-color: rgba(0, 180, 216, 0.3);
+      transform: translateY(-4px);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: #e5e7eb;
+    }
+    
+    .feature-card p {
+      color: rgba(229, 231, 235, 0.7);
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      padding: 4rem 0;
+      text-align: center;
+    }
+    
+    .cta-content {
+      background: linear-gradient(135deg, rgba(0, 180, 216, 0.15), rgba(0, 150, 199, 0.05));
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      border-radius: 24px;
+      padding: 3rem;
+    }
+    
+    .cta-content h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #e5e7eb;
+    }
+    
+    .cta-content p {
+      color: rgba(229, 231, 235, 0.8);
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, #00b4d8, #0096c7);
+      color: #fff;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 180, 216, 0.4);
+    }
+    
+    /* Footer */
+    footer {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 4rem;
+    }
+    
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    footer p {
+      color: rgba(229, 231, 235, 0.6);
+      font-size: 0.875rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    
+    .footer-links a {
+      color: rgba(229, 231, 235, 0.6);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: #00b4d8;
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Gate -->
+  <div class="password-gate" id="passwordGate">
+    <div class="password-gate-content">
+      <div class="password-gate-icon">🔒</div>
+      <h2 class="password-gate-title">Case Study Protetto</h2>
+      <p class="password-gate-subtitle">Questo case study contiene informazioni riservate. Inserisci la password per continuare.</p>
+      <form id="passwordForm">
+        <div class="password-input-wrapper">
+          <input type="password" class="password-input" id="passwordInput" placeholder="Inserisci password" autocomplete="off">
+        </div>
+        <button type="submit" class="password-submit">Sblocca Case Study</button>
+        <div class="password-error" id="passwordError">Password errata. Riprova.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">OA</a>
+      
+      <nav class="desktop-nav">
+        <ul class="nav-list">
+          <li class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Servizi
+              <svg class="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="/fractional-head-of-design.html">Fractional Head of Product Design</a>
+              <a href="/ux-audit.html">UX Audit</a>
+              <a href="/landing-page-design.html">Landing Page & Website Design</a>
+            </div>
+          </li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#portfolio">Portfolio</a></li>
+          <li><a href="/#esperienza">Esperienza</a></li>
+          <li><a href="/#testimonial">Testimonial</a></li>
+          <li><a href="/#chi-sono">Chi Sono</a></li>
+          <li><a href="/#contatti">Contatti</a></li>
+        </ul>
+        <button class="lang-button" onclick="switchLanguage()">ENG</button>
+      </nav>
+      
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <button class="mobile-menu-dropdown-btn" onclick="toggleMobileDropdown()">
+              Servizi
+              <svg class="dropdown-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="mobile-dropdown-content" id="mobileDropdown">
+              <a href="/fractional-head-of-design.html">Fractional Head of Product Design</a>
+              <a href="/ux-audit.html">UX Audit</a>
+              <a href="/landing-page-design.html">Landing Page & Website Design</a>
+            </div>
+          </li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#portfolio">Portfolio</a></li>
+          <li><a href="/#esperienza">Esperienza</a></li>
+          <li><a href="/#testimonial">Testimonial</a></li>
+          <li><a href="/#chi-sono">Chi Sono</a></li>
+          <li><a href="/#contatti">Contatti</a></li>
+        </ul>
+        <button class="lang-button" onclick="switchLanguage()">ENG</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+        <button class="back-button" onclick="history.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Torna Indietro
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1>BSB <span class="highlight">Video Manager</span> Platform</h1>
+            
+            <p class="hero-subtitle">
+              Sistema centralizzato di gestione videocamere per il monitoraggio autostradale. Progettata interfaccia unificata per controllo live streaming, gestione archivi video e analisi eventi in tempo reale.
+            </p>
+          </div>
+          
+          <div class="hero-image-wrapper">
+            <div class="hero-image">
+              <img src="/images/bsb-hero.png" alt="BSB Video Manager Interface">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Quick Facts -->
+        <div class="quick-facts-grid">
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">🏢</span>
+            <span class="quick-fact-text"><strong>Cliente:</strong> Movyon - Autostrade per l'Italia</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">👤</span>
+            <span class="quick-fact-text"><strong>Ruolo:</strong> Senior UX Designer</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">📅</span>
+            <span class="quick-fact-text"><strong>Durata:</strong> 6 mesi</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">🎯</span>
+            <span class="quick-fact-text"><strong>Focus:</strong> Dark Mode, Legacy Redesign</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics Section -->
+    <section class="metrics-section">
+      <div class="container">
+        <h2>Impatto del Progetto</h2>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-value">600+</div>
+            <div class="metric-label">Operatori supportati</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">40%</div>
+            <div class="metric-label">Riduzione errori operativi</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-value">WCAG AA</div>
+            <div class="metric-label">Compliance accessibilita</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+      <div class="container">
+        <h2>Processo di Design</h2>
+        
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Analisi Sistema Legacy</h3>
+              <p>Audit completo del sistema esistente, identificazione pain points attraverso sessioni di shadowing con operatori radio e tecnici di sala.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>User Research</h3>
+              <p>Interviste con operatori di diversi turni per comprendere esigenze specifiche in condizioni di bassa luminosita e stress operativo.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Dark Mode Design</h3>
+              <p>Sviluppo sistema colori ottimizzato per ambienti control room, riducendo affaticamento visivo durante turni notturni prolungati.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <h3>Prototyping & Testing</h3>
+              <p>Creazione prototipi interattivi testati direttamente in ambiente operativo con feedback iterativo dagli utenti finali.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">05</div>
+            <div class="step-content">
+              <h3>Implementation Support</h3>
+              <p>Collaborazione con team sviluppo per garantire fedelta del design, documentazione completa e training operatori.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <h2>Innovazioni Chiave</h2>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🌙</div>
+            <h3>Dark Mode Avanzato</h3>
+            <p>Sistema colori progettato per ridurre affaticamento visivo durante turni notturni, con contrasti ottimizzati per leggibilita.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3>Scorciatoie Operatore</h3>
+            <p>Keyboard shortcuts e azioni rapide per identificazione immediata problemi e gestione emergenze in tempo reale.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">📹</div>
+            <h3>Multi-Camera View</h3>
+            <p>Visualizzazione simultanea di piu feed video con controlli intuitivi per switching rapido tra telecamere.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">♿</div>
+            <h3>Accessibilita WCAG AA</h3>
+            <p>Interfaccia completamente accessibile con supporto screen reader e navigazione da tastiera completa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <div class="cta-content">
+          <h2>Interessato a questo tipo di progetto?</h2>
+          <p>Se stai cercando di migliorare l'esperienza utente dei tuoi sistemi enterprise o control room, parliamone.</p>
+          <a href="/#contatti" class="cta-button">
+            Contattami
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Omar Amato. Tutti i diritti riservati.</p>
+      <div class="footer-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/cookies">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Password Gate - Shared across all case studies
+    const CORRECT_PASSWORD = 'topsecret';
+    const AUTH_KEY = 'case_study_authenticated';
+    
+    if (localStorage.getItem(AUTH_KEY) === 'true') {
+      document.getElementById('passwordGate').classList.add('hidden');
+    }
+    
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('passwordInput').value;
+      
+      if (password === CORRECT_PASSWORD) {
+        localStorage.setItem(AUTH_KEY, 'true');
+        document.getElementById('passwordGate').classList.add('hidden');
+      } else {
+        document.getElementById('passwordError').classList.add('visible');
+        document.getElementById('passwordInput').value = '';
+      }
+    });
+    
+    // Mobile Menu
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    }
+    
+    function toggleMobileDropdown() {
+      document.getElementById('mobileDropdown').classList.toggle('active');
+    }
+    
+    // Language Switch
+    function switchLanguage() {
+      localStorage.setItem('preferredLanguage', 'en');
+      window.location.href = '/case-study-bsb-en.html';
+    }
+  </script>
+</body>
+</html>

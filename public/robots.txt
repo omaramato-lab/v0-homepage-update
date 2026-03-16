@@ -1,0 +1,41 @@
+# robots.txt for omaramato.com
+# Updated: 2025-12-30
+
+# Allow all compliant search engines
+User-agent: *
+Allow: /
+
+# Block access to private/admin areas
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /*.json$
+
+# Allow crawling of static assets
+Allow: /images/
+Allow: /public/
+Allow: /*.css$
+Allow: /*.js$
+
+# Sitemap location
+Sitemap: https://omaramato.com/sitemap.xml
+
+# Crawl delay for polite bots (optional)
+Crawl-delay: 0.5
+
+# Specific instructions for major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+# Block bad bots
+User-agent: AhrefsBot
+Crawl-delay: 2
+
+User-agent: SemrushBot
+Crawl-delay: 2

@@ -1,98 +1,47 @@
 "use client"
 
-import { ArrowRight, Quote } from "lucide-react"
-import Link from "next/link"
-import { FadeIn, StaggerChildren } from "@/components/animations"
-
-const testimonials = [
-  {
-    quote:
-      "I worked with Omar for years back in Italy and I\u2019ve been inspired and motivated many times by his outstanding creativity and his expertise across the whole design process and thinking. Was a pleasure to work with and learn from him.",
-    name: "Fabio Laneri",
-    role: "Principal Designer at Viator",
-  },
-  {
-    quote:
-      "He designs with clear logic that makes the hand-off to development incredibly smooth. Great attention to detail and strong communication skills. I highly recommend him to any team looking for a top-tier designer.",
-    name: "Nicola Cortesi",
-    role: "Front End Developer at Advepa",
-  },
-  {
-    quote:
-      "Working with Omar was a great joy. His understanding of user experience is well above average. He knew what questions to ask and how to set up a process and see it through to the end.",
-    name: "Nathan McDonald",
-    role: "UX/UI Designer at Volopa",
-  },
-  {
-    quote:
-      "Omar is a hard working and very serious team player with a very impressive background in the UI/UX field. His ability to deal with multiple projects and produce creative and smart designs was unlike any I\u2019ve seen before.",
-    name: "Antonio Di Mariano",
-    role: "Senior Python Developer at SoftwareOne",
-  },
-  {
-    quote:
-      "A true artist with great ideas: can turn a bunch of lines of code into a true piece of art. Really funny to work with and we formed a great team together.",
-    name: "Alessandro Scuderi",
-    role: "Storyteller & Copywriter",
-  },
-  {
-    quote:
-      "Excellent skills in UI/UX design and great taste in graphics and logo design. Built high quality Photoshop & Illustrator templates with HTML, CSS & Javascript.",
-    name: "Enrico Tuttobene",
-    role: "Full Stack Developer at Automattic",
-  },
-]
+import { Card } from "@/components/ui/card"
+import { useLanguage } from "@/contexts/language-context"
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 
 export function TestimonialsSection() {
+  const { t } = useLanguage()
+  const { ref, isVisible } = useIntersectionObserver()
+
+  // Safety check for translations
+  if (!t || !t.testimonials) {
+    return null
+  }
+
   return (
-    <section className="px-6 py-24">
-      <div className="mx-auto max-w-6xl">
-        {/* Section header */}
-        <FadeIn>
-          <div className="mb-16 text-center">
-            <p className="mb-3 font-mono text-sm tracking-widest text-primary uppercase">
-              Testimonials
-            </p>
-            <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
-              What professionals I worked with say about me
-            </h2>
-          </div>
-        </FadeIn>
-
-        {/* Testimonials grid */}
-        <StaggerChildren
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-          staggerDelay={100}
+    <section id="testimonial" className="py-24 bg-background" ref={ref}>
+      <div className="container mx-auto px-4">
+        <div
+          className={`text-center mb-16 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
-          {testimonials.map((t) => (
-            <div
-              key={t.name}
-              className="card-lift flex flex-col rounded-xl border border-border bg-card p-6"
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">{t.testimonials.title}</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">{t.testimonials.subtitle}</p>
+        </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {t.testimonials.items.map((testimonial, index) => (
+            <Card
+              key={index}
+              className={`bg-gradient-to-br from-card to-card/70 border border-accent/30 p-6 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl hover:shadow-accent/10 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{
+                transitionDelay: isVisible ? `${((index % 4) + 1) * 100}ms` : "0ms",
+                transitionDuration: "700ms",
+              }}
             >
-              <Quote className="mb-4 size-5 text-primary/40" />
-              <blockquote className="mb-6 flex-1 leading-relaxed text-muted-foreground italic">
-                {`"${t.quote}"`}
-              </blockquote>
-              <div>
-                <p className="font-semibold text-card-foreground">{t.name}</p>
-                <p className="text-sm text-muted-foreground">{t.role}</p>
+              <p className="text-sm italic mb-6 leading-relaxed text-foreground/90">&ldquo;{testimonial.text}&rdquo;</p>
+              <div className="pt-4 border-t border-border">
+                <p className="font-semibold">{testimonial.name}</p>
+                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
               </div>
-            </div>
+            </Card>
           ))}
-        </StaggerChildren>
-
-        {/* Subtle reference link */}
-        <FadeIn delay={300}>
-          <div className="mt-12 text-center">
-            <Link
-              href="/references"
-              className="group inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-            >
-              Share your experience working with me
-              <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-        </FadeIn>
+        </div>
       </div>
     </section>
   )

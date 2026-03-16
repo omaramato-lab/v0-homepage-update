@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <title>Case Study: Digital Product Passport - Rekord.io | Omar Amato</title>
+  <meta name="description" content="Case study: Sistema Digital Product Passport per turbine eoliche. Design mobile-first per tracciamento componenti e manutenzione campo.">
+  <meta name="robots" content="noindex, nofollow">
+  
+  <style>
+    /* Password Gate Styles */
+    .password-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #05070a;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    
+    .password-gate.hidden {
+      display: none;
+    }
+    
+    .password-gate-content {
+      max-width: 440px;
+      width: 100%;
+      background: rgba(13, 16, 22, 0.95);
+      border: 1px solid rgba(47, 168, 178, 0.3);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+    
+    .password-gate-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .password-gate-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #e5e7eb;
+      margin-bottom: 0.75rem;
+    }
+    
+    .password-gate-subtitle {
+      font-size: 0.9375rem;
+      color: #9ca3af;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    
+    .password-input-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    
+    .password-input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      background: rgba(5, 7, 10, 0.8);
+      border: 1px solid rgba(47, 168, 178, 0.3);
+      border-radius: 8px;
+      color: #e5e7eb;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+    
+    .password-input:focus {
+      outline: none;
+      border-color: #2fa8b2;
+      box-shadow: 0 0 0 3px rgba(47, 168, 178, 0.1);
+    }
+    
+    .password-submit {
+      width: 100%;
+      padding: 0.875rem;
+      background: linear-gradient(135deg, #2fa8b2, #14b8a6);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    
+    .password-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(47, 168, 178, 0.4);
+    }
+    
+    .password-error {
+      display: none;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 8px;
+      color: #ef4444;
+      font-size: 0.875rem;
+    }
+    
+    .password-error.visible {
+      display: block;
+    }
+    
+    /* Unified Design System */
+    :root {
+      --color-teal: #2fa8b2;
+      --color-teal-light: #14b8a6;
+      --color-blue: #3b82f6;
+      --color-amber: #f59e0b;
+      --color-green: #22c55e;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: #05070a;
+      color: #e5e7eb;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(5, 7, 10, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+      z-index: 1000;
+    }
+    
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #6c5ce7;
+      text-decoration: none;
+    }
+    
+    .desktop-nav {
+      display: none;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 768px) {
+      .desktop-nav { display: flex; }
+    }
+    
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    
+    .nav-dropdown { position: relative; }
+    
+    .nav-dropdown-btn {
+      background: transparent;
+      border: none;
+      color: #6c5ce7;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-family: inherit;
+    }
+    
+    .dropdown-arrow {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s;
+    }
+    
+    .nav-dropdown:hover .dropdown-arrow { transform: rotate(180deg); }
+    
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 16rem;
+      background: rgba(5, 7, 10, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(108, 92, 231, 0.2);
+      border-radius: 8px;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+    
+    .nav-dropdown:hover .nav-dropdown-content { display: block; }
+    
+    .nav-dropdown-content a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      border-bottom: 1px solid rgba(108, 92, 231, 0.1);
+      transition: all 0.3s;
+    }
+    
+    .nav-dropdown-content a:last-child { border-bottom: none; }
+    .nav-dropdown-content a:hover { background: rgba(108, 92, 231, 0.1); color: #6c5ce7; }
+    
+    .nav-list > li > a {
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.3s;
+    }
+    
+    .nav-list > li > a:hover { color: #6c5ce7; }
+    
+    .lang-button {
+      border: 1px solid rgba(108, 92, 231, 0.5);
+      background: transparent;
+      color: #e5e7eb;
+      padding: 0.375rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+    
+    .lang-button:hover { background: #6c5ce7; color: #fff; border-color: #6c5ce7; }
+    
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: flex;
+      background: transparent;
+      border: none;
+      color: #e5e7eb;
+      padding: 0.5rem;
+      cursor: pointer;
+    }
+    
+    @media (min-width: 768px) { .mobile-menu-toggle { display: none; } }
+    
+    .mobile-menu {
+      display: none;
+      background: rgba(5, 7, 10, 0.95);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(108, 92, 231, 0.1);
+    }
+    
+    .mobile-menu.active { display: block; }
+    .mobile-menu nav { padding: 1rem; }
+    .mobile-menu ul { list-style: none; }
+    .mobile-menu ul li { margin-bottom: 1rem; }
+    
+    .mobile-menu-dropdown-btn {
+      background: transparent;
+      border: none;
+      color: #6c5ce7;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      font-family: inherit;
+    }
+    
+    .mobile-dropdown-content { display: none; padding-left: 1rem; margin-top: 0.5rem; }
+    .mobile-dropdown-content.active { display: block; }
+    
+    .mobile-dropdown-content a {
+      display: block;
+      padding: 0.5rem 0;
+      color: rgba(229, 231, 235, 0.6);
+      text-decoration: none;
+      font-size: 0.875rem;
+    }
+    
+    .mobile-menu ul > li > a {
+      color: rgba(229, 231, 235, 0.8);
+      text-decoration: none;
+      font-size: 1rem;
+      display: block;
+      padding: 0.5rem 0;
+    }
+    
+    .mobile-menu .lang-button { width: 100%; margin-top: 1rem; padding: 0.75rem; text-align: center; }
+    
+    /* Footer */
+    footer {
+      padding: 2rem;
+      background: #05070a;
+      border-top: 1px solid rgba(108, 92, 231, 0.1);
+    }
+    
+    .footer-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    @media (min-width: 768px) { .footer-content { flex-direction: row; } }
+    
+    .footer-content p { font-size: 0.875rem; color: #6b7280; margin: 0; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.875rem; color: #6b7280; text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: #e5e7eb; }
+
+    /* Main Content */
+    main { padding-top: 80px; }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    @media (min-width: 768px) { .container { padding: 0 2rem; } }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(229, 231, 235, 0.6);
+      text-decoration: none;
+      font-size: 0.875rem;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      margin: 2rem 0;
+      padding: 0.5rem 0;
+      font-family: inherit;
+      transition: all 0.3s;
+    }
+    
+    .back-button:hover { color: var(--color-teal); transform: translateX(-4px); }
+    .back-button svg { width: 20px; height: 20px; }
+    
+    /* Hero Section with Side-by-Side Layout */
+    .hero {
+      padding: 4rem 0 5rem;
+    }
+    
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+    }
+    
+    .hero-content {
+      text-align: left;
+    }
+    
+    .hero-content h1 {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-subtitle {
+      text-align: left;
+      margin: 0 0 2rem 0;
+      max-width: 100%;
+    }
+    
+    .hero-image-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .hero-image {
+      max-width: 380px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      filter: drop-shadow(0 20px 40px rgba(47, 168, 178, 0.15));
+    }
+    
+    @media (min-width: 768px) { .hero-image { max-width: 400px; } }
+    @media (min-width: 1024px) { .hero-image { max-width: 450px; } }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #e5e7eb, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--color-teal), var(--color-teal-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.7;
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+    
+    /* Quick Facts Cards Grid */
+    .quick-facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      max-width: 100%;
+      margin-top: 3rem;
+    }
+    
+    .quick-fact-card {
+      background: rgba(13, 16, 22, 0.6);
+      border: 1px solid rgba(47, 168, 178, 0.2);
+      border-radius: 12px;
+      padding: 1.25rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    
+    .quick-fact-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(47, 168, 178, 0.4);
+      box-shadow: 0 4px 12px rgba(47, 168, 178, 0.1);
+    }
+    
+    .quick-fact-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .quick-fact-text { font-size: 0.875rem; color: #d1d5db; line-height: 1.4; }
+    
+    /* Sections */
+    section { padding: 5rem 0; }
+    @media (max-width: 768px) { section { padding: 3rem 0; } }
+    
+    .section-alt {
+      background: linear-gradient(135deg, rgba(47, 168, 178, 0.05), rgba(20, 184, 166, 0.03));
+    }
+    
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      text-align: center;
+      background: linear-gradient(135deg, #e5e7eb, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .intro-text {
+      font-size: 1.125rem;
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.8;
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+    
+    /* Metrics Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    
+    .metric-card {
+      background: rgba(13, 16, 22, 0.5);
+      border: 1px solid rgba(47, 168, 178, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(47, 168, 178, 0.2);
+      border-color: var(--color-teal);
+    }
+    
+    .metric-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .metric-value { font-size: 3rem; font-weight: 700; color: var(--color-teal); margin-bottom: 0.5rem; }
+    .metric-label { font-size: 0.875rem; color: rgba(229, 231, 235, 0.6); text-transform: uppercase; letter-spacing: 0.05em; }
+    
+    /* Process Steps Design from Fractional Page */
+    .process-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .process-step {
+      background: linear-gradient(135deg, rgba(47, 168, 178, 0.12), rgba(20, 184, 166, 0.06));
+      border-left: 4px solid var(--color-teal);
+      border-radius: 8px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      text-align: left;
+      gap: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .process-step:hover {
+      box-shadow: 0 12px 32px rgba(47, 168, 178, 0.2);
+      border-left-color: var(--color-teal-light);
+      transform: translateY(-4px);
+    }
+    
+    .step-number {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--color-teal);
+      min-width: 4rem;
+    }
+    
+    .step-content h3 {
+      color: #fff;
+      margin-bottom: 0.5rem;
+      font-size: 1.15rem;
+    }
+    
+    .step-content p {
+      color: rgba(229, 231, 235, 0.8);
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .process-step {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      
+      .step-number {
+        margin-bottom: 1rem;
+      }
+    }
+    
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background: rgba(13, 16, 22, 0.5);
+      border: 1px solid rgba(47, 168, 178, 0.2);
+      border-radius: 12px;
+      padding: 2rem;
+      transition: all 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(47, 168, 178, 0.2);
+      border-color: var(--color-teal);
+    }
+    
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .feature-title { font-size: 1.25rem; margin-bottom: 0.75rem; color: var(--color-teal); }
+    .feature-text { color: rgba(229, 231, 235, 0.8); line-height: 1.7; }
+    
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(13, 16, 22, 0.5);
+      border: 1px solid rgba(47, 168, 178, 0.2);
+      border-radius: 16px;
+      margin-top: 3rem;
+    }
+    
+    .cta-section h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .cta-section p { font-size: 1.125rem; color: rgba(229, 231, 235, 0.8); margin-bottom: 2rem; }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, var(--color-teal), var(--color-teal-light));
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(47, 168, 178, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <!-- Password Gate -->
+  <div class="password-gate" id="passwordGate">
+    <div class="password-gate-content">
+      <div class="password-gate-icon">🔒</div>
+      <h2 class="password-gate-title">Case Study Protetto</h2>
+      <p class="password-gate-subtitle">Questo case study contiene informazioni riservate. Inserisci la password per continuare.</p>
+      <form id="passwordForm">
+        <div class="password-input-wrapper">
+          <input type="password" class="password-input" id="passwordInput" placeholder="Inserisci password" autocomplete="off">
+        </div>
+        <button type="submit" class="password-submit">Sblocca Case Study</button>
+        <div class="password-error" id="passwordError">Password errata. Riprova.</div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">OA</a>
+      
+      <nav class="desktop-nav">
+        <ul class="nav-list">
+          <li class="nav-dropdown">
+            <button class="nav-dropdown-btn">
+              Servizi
+              <svg class="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="/fractional-head-of-design.html">Fractional Head of Product Design</a>
+              <a href="/ux-audit.html">UX Audit</a>
+              <a href="/landing-page-design.html">Landing Page & Website Design</a>
+            </div>
+          </li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#portfolio">Portfolio</a></li>
+          <li><a href="/#esperienza">Esperienza</a></li>
+          <li><a href="/#testimonial">Testimonial</a></li>
+          <li><a href="/#chi-sono">Chi Sono</a></li>
+          <li><a href="/#contatti">Contatti</a></li>
+        </ul>
+        <button class="lang-button" onclick="switchLanguage()">ENG</button>
+      </nav>
+      
+      <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="mobile-menu" id="mobileMenu">
+      <nav>
+        <ul>
+          <li>
+            <button class="mobile-menu-dropdown-btn" onclick="toggleMobileDropdown()">
+              Servizi
+              <svg class="dropdown-arrow" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <div class="mobile-dropdown-content" id="mobileDropdown">
+              <a href="/fractional-head-of-design.html">Fractional Head of Product Design</a>
+              <a href="/ux-audit.html">UX Audit</a>
+              <a href="/landing-page-design.html">Landing Page & Website Design</a>
+            </div>
+          </li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/#portfolio">Portfolio</a></li>
+          <li><a href="/#esperienza">Esperienza</a></li>
+          <li><a href="/#testimonial">Testimonial</a></li>
+          <li><a href="/#chi-sono">Chi Sono</a></li>
+          <li><a href="/#contatti">Contatti</a></li>
+        </ul>
+        <button class="lang-button" onclick="switchLanguage()">ENG</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+        <button class="back-button" onclick="history.back()">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Torna Indietro
+        </button>
+    </div>
+
+    <!-- Hero Section with Side-by-Side Layout -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-content">
+            <h1>Digital Product Passport per <span class="highlight">Energia Rinnovabile</span></h1>
+            
+            <p class="hero-subtitle">
+              Progettazione di un sistema Digital Product Passport mobile-first per il tracciamento lifecycle dei componenti di turbine eoliche, ottimizzando manutenzione sul campo e conformità normativa EU.
+            </p>
+          </div>
+          
+          <div class="hero-image-wrapper">
+            <div class="hero-image">
+              <img src="/images/dpp-digital-product-passport.png" alt="Digital Product Passport - Turbina Eolica e Dashboard">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Quick Facts as Cards Below -->
+        <div class="quick-facts-grid">
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">🏢</span>
+            <span class="quick-fact-text"><strong>Cliente:</strong> AMRC (Advanced Manufacturing Research Centre)</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">👤</span>
+            <span class="quick-fact-text"><strong>Ruolo:</strong> Product Designer - Lead</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">📅</span>
+            <span class="quick-fact-text"><strong>Durata:</strong> 2 mesi</span>
+          </div>
+          <div class="quick-fact-card">
+            <span class="quick-fact-icon">🎯</span>
+            <span class="quick-fact-text"><strong>Focus:</strong> Mobile-first, Field Maintenance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact Metrics -->
+    <section class="section-alt">
+      <div class="container">
+        <h2>Impatto del Progetto</h2>
+        <p class="intro-text">
+          Risultati misurabili ottenuti attraverso un design centrato sull'utente e validazione iterativa con tecnici sul campo.
+        </p>
+        
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon">⚡</div>
+            <div class="metric-value">-40%</div>
+            <div class="metric-label">Tempo di Accesso ai Dati</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">📱</div>
+            <div class="metric-value">+35%</div>
+            <div class="metric-label">Efficienza Manutenzione</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon">✅</div>
+            <div class="metric-value">100%</div>
+            <div class="metric-label">Conformità EU DPP</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design Process -->
+    <section>
+      <div class="container">
+        <h2>Processo di Design</h2>
+        
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">01</div>
+            <div class="step-content">
+              <h3>Discovery & Ricerca</h3>
+              <p>Interviste con tecnici di manutenzione sul campo, analisi dei workflow esistenti e mappatura dei pain points nella gestione documentale dei componenti.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">02</div>
+            <div class="step-content">
+              <h3>Information Architecture</h3>
+              <p>Definizione della struttura dati per il passaporto digitale, gerarchia informativa e flussi di navigazione ottimizzati per contesti outdoor.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">03</div>
+            <div class="step-content">
+              <h3>Prototyping Mobile-First</h3>
+              <p>Design di interfacce ottimizzate per smartphone in condizioni di luce intensa, con touch target adatti all'uso con guanti da lavoro.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">04</div>
+            <div class="step-content">
+              <h3>Field Testing</h3>
+              <p>Validazione sul campo con tecnici reali, iterazioni basate su feedback in contesto operativo e ottimizzazione delle performance offline.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <div class="step-number">05</div>
+            <div class="step-content">
+              <h3>Design System & Handoff</h3>
+              <p>Creazione di componenti riutilizzabili, documentazione completa e supporto al team di sviluppo durante l'implementazione.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="section-alt">
+      <div class="container">
+        <h2>Funzionalità Chiave</h2>
+        
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">📲</div>
+            <h3 class="feature-title">QR Code Scanning</h3>
+            <p class="feature-text">Accesso istantaneo al passaporto digitale tramite scansione QR code sul componente, anche in modalità offline.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">🔧</div>
+            <h3 class="feature-title">Storico Manutenzione</h3>
+            <p class="feature-text">Timeline completa degli interventi con foto, note tecniche e firma digitale del tecnico responsabile.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3 class="feature-title">Dashboard Analytics</h3>
+            <p class="feature-text">Visualizzazione aggregata dello stato del parco turbine con alert predittivi e KPI di performance.</p>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">🌐</div>
+            <h3 class="feature-title">Offline-First</h3>
+            <p class="feature-text">Funzionalità complete anche senza connessione, con sincronizzazione automatica al ripristino della rete.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="container">
+        <div class="cta-section">
+          <h2>Interessato a questo tipo di progetto?</h2>
+          <p>Contattami per discutere come posso aiutarti con il design del tuo prodotto digitale.</p>
+          <a href="/#contatti" class="cta-button">Parliamone</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2025 Omar Amato. Tutti i diritti riservati.</p>
+      <div class="footer-links">
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/cookies">Cookie Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Password Gate - Shared across all case studies
+    const CORRECT_PASSWORD = 'topsecret';
+    const AUTH_KEY = 'case_study_authenticated';
+    
+    if (localStorage.getItem(AUTH_KEY) === 'true') {
+      document.getElementById('passwordGate').classList.add('hidden');
+    }
+    
+    document.getElementById('passwordForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('passwordInput').value;
+      
+      if (password === CORRECT_PASSWORD) {
+        localStorage.setItem(AUTH_KEY, 'true');
+        document.getElementById('passwordGate').classList.add('hidden');
+      } else {
+        document.getElementById('passwordError').classList.add('visible');
+        document.getElementById('passwordInput').value = '';
+      }
+    });
+    
+    // Mobile Menu
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('active');
+    }
+    
+    function toggleMobileDropdown() {
+      document.getElementById('mobileDropdown').classList.toggle('active');
+    }
+    
+    // Language Switch
+    function switchLanguage() {
+      localStorage.setItem('preferredLanguage', 'en');
+      window.location.href = '/case-study-rekord-dpp-en.html';
+    }
+  </script>
+</body>
+</html>

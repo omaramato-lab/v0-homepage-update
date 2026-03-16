@@ -1,0 +1,14 @@
+# Google Search Console Verification
+# This file should be replaced with your actual verification code from GSC
+
+# Steps to get your verification code:
+# 1. Go to https://search.google.com/search-console
+# 2. Add property: omaramato.com
+# 3. Choose verification method: HTML meta tag
+# 4. Copy the 'content' value from the meta tag
+# 5. Add it to NEXT_PUBLIC_GSC_VERIFICATION in .env.local
+
+# Example verification meta tag:
+# <meta name="google-site-verification" content="abc123xyz..." />
+
+# The content value (abc123xyz...) should go in your .env.local file

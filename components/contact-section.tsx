@@ -1,61 +1,53 @@
 "use client"
 
-import { Calendar, Mail, Linkedin } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { FadeIn } from "@/components/animations"
+import { Calendar, Mail, Linkedin } from "lucide-react"
+import { useLanguage } from "@/contexts/language-context"
+import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
 
 export function ContactSection() {
+  const { t } = useLanguage()
+  const { ref, isVisible } = useIntersectionObserver()
+
+  // Safety check for translations
+  if (!t || !t.contact) {
+    return null
+  }
+
   return (
-    <section id="contact" className="px-6 py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        {/* Section header */}
-        <FadeIn>
-          <p className="mb-3 font-mono text-sm tracking-widest text-primary uppercase">
-            Contact
-          </p>
-          <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
-            {"Let's get started?"}
-          </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
-            Book a 30 min call to discuss your project with no commitment
-          </p>
-        </FadeIn>
-
-        {/* Availability note */}
-        <FadeIn delay={150}>
-          <div className="mx-auto mt-8 max-w-xl rounded-xl border border-primary/20 bg-primary/5 p-5 text-left">
-            <div className="flex items-start gap-3">
-              <Calendar className="mt-0.5 size-5 shrink-0 text-primary" />
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {"I'm currently taking on new projects and available to start immediately. Whether you need fractional support or a full engagement, let's discuss how I can help."}
-              </p>
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* CTA Buttons */}
-        <FadeIn delay={300}>
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button asChild size="lg" className="btn-glow gap-2">
-              <a href="https://calendly.com/omaramato-info/30min" target="_blank" rel="noopener noreferrer">
-                <Calendar className="size-4" />
-                Book Calendly Call
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="btn-glow gap-2">
-              <a href="mailto:info@omaramato.com">
-                <Mail className="size-4" />
-                Send me an Email
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="btn-glow gap-2">
-              <a href="https://www.linkedin.com/in/omaramato" target="_blank" rel="noopener noreferrer">
-                <Linkedin className="size-4" />
-                LinkedIn
-              </a>
-            </Button>
-          </div>
-        </FadeIn>
+    <section id="contatti" className="py-24 bg-gradient-to-br from-[#2d1f52] via-[#1f1438] to-[#2d1f52]" ref={ref}>
+      <div
+        className={`container mx-auto px-4 text-center transition-all duration-700 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}
+      >
+        <h2 className="text-5xl md:text-6xl font-bold mb-6">{t.contact.title}</h2>
+        <p className="text-xl text-foreground/80 max-w-2xl mx-auto mb-12">{t.contact.subtitle}</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+          <Button size="lg" className="bg-white text-gray-900 hover:bg-white/90 gap-2" asChild>
+            <a href="https://cal.com/omar-amato-uhcc2g/30min" target="_blank" rel="noopener noreferrer">
+              <Calendar className="w-5 h-5" />
+              {t.contact.ctaCalendly}
+            </a>
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="border-white text-white hover:bg-white/10 gap-2 bg-transparent"
+            asChild
+          >
+            <a href="mailto:info@omaramato.com">
+              <Mail className="w-5 h-5" />
+              {t.contact.ctaEmail}
+            </a>
+          </Button>
+        </div>
+        <div className="flex justify-center">
+          <Button variant="link" className="text-white hover:text-accent gap-2" asChild>
+            <a href="https://www.linkedin.com/in/omaramato" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="w-5 h-5" />
+              {t.contact.linkedin}
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   )
