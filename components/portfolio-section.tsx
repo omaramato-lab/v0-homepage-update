@@ -133,23 +133,16 @@ export function PortfolioSection() {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <button
-              onClick={() => setShowDownloadModal(true)}
+            <Link
+              href="/portfolio"
               className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 md:px-8 py-3 md:py-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-colors duration-300"
             >
               <FileText className="w-5 md:w-6 h-5 md:h-6" />
-              Download my portfolio
-            </button>
+              Vai al portfolio
+            </Link>
           </div>
         </div>
       </div>
-
-      <PortfolioDownloadModal
-        open={showDownloadModal}
-        onOpenChange={setShowDownloadModal}
-        fileName="Portfolio.pdf"
-        filePath="/Portfolio-ENG.pdf"
-      />
     </section>
   )
 }
