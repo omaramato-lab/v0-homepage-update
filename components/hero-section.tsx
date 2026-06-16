@@ -1,20 +1,13 @@
 "use client"
 
-import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { useLanguage } from "@/contexts/language-context"
-import { PortfolioDownloadModal } from "./portfolio-download-modal"
 import { WavyLinesBackground } from "./wavy-lines-background"
 import { FileText } from "lucide-react"
 
 export function HeroSection() {
   const { t, language } = useLanguage()
-  const [showDownloadModal, setShowDownloadModal] = useState(false)
-
-  const handleDownloadClick = () => {
-    setShowDownloadModal(true)
-  }
 
   return (
     <>
@@ -58,12 +51,14 @@ export function HeroSection() {
                 </Button>
                 <Button
                   size="lg"
-                  onClick={() => setShowDownloadModal(true)}
+                  asChild
                   variant="outline"
                   className="w-full md:w-auto border-primary text-primary hover:bg-primary/10 bg-transparent text-sm md:text-base inline-flex items-center justify-center gap-2"
                 >
-                  <FileText className="w-4 md:w-5 h-4 md:h-5" />
-                  Download portfolio
+                  <a href="/portfolio">
+                    <FileText className="w-4 md:w-5 h-4 md:h-5" />
+                    Vai al portfolio
+                  </a>
                 </Button>
                 <Button
                   size="lg"
@@ -84,13 +79,6 @@ export function HeroSection() {
           </div>
         </div>
       </section>
-
-      <PortfolioDownloadModal
-        open={showDownloadModal}
-        onOpenChange={setShowDownloadModal}
-        fileName="Portfolio.pdf"
-        filePath="/Portfolio-ENG.pdf"
-      />
     </>
   )
 }
