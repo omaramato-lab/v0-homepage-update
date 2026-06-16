@@ -1,18 +1,16 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import Link from "next/link"
 
 import { Card } from "@/components/ui/card"
 import { useLanguage } from "@/contexts/language-context"
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer"
-import { PortfolioDownloadModal } from "./portfolio-download-modal"
 import { FileText } from "lucide-react"
 
 export function PortfolioSection() {
   const { t } = useLanguage()
   const { ref, isVisible } = useIntersectionObserver()
-  const [showDownloadModal, setShowDownloadModal] = useState(false)
 
   // Safety check for translations
   if (!t || !t.portfolio) {
