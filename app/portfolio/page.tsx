@@ -26,11 +26,11 @@ const projects = [
     slug: "rekord-dpp",
     company: "Rekord",
     role: "Product Design / Digital Product Passport",
-    title: "Digital Product Passport for circular supply chains",
+    title: "A mobile-first Digital Product Passport for wind turbine maintenance",
     description:
-      "Designing the Digital Product Passport experience for Rekord, making product traceability and compliance data accessible to every stakeholder.",
-    tags: ["Product Design", "Compliance", "Traceability"],
-    accent: "#0ea5e9",
+      "A QR-triggered Digital Product Passport co-designed with the AMRC, giving field technicians instant access to component traceability, quality control, and CE compliance data.",
+    tags: ["Product Design", "Research", "UX / UI"],
+    accent: "#22c55e",
   },
 ]
 
