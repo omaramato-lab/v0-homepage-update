@@ -309,12 +309,12 @@ export default function FisioGestPage() {
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:justify-center">
           <div className="flex items-end justify-center gap-4">
             <PhoneShot
-              src="/portfolio/fisiogest/agenda-mobile.png"
-              alt="FisioGest agenda screen on mobile"
-            />
-            <PhoneShot
               src="/portfolio/fisiogest/patient-overview-mobile.png"
               alt="FisioGest patient overview screen on mobile"
+            />
+            <PhoneShot
+              src="/portfolio/fisiogest/add-patient-mobile.png"
+              alt="FisioGest add patient screen on mobile"
               className="hidden sm:block"
             />
           </div>
@@ -342,10 +342,12 @@ export default function FisioGestPage() {
             </h2>
           </div>
           <div className="grid items-center gap-10 lg:grid-cols-2">
-            <DesktopShot
-              src="/portfolio/fisiogest/percorso-desktop.png"
-              alt="FisioGest patient detail and therapeutic pathway on desktop"
-            />
+            <div className="flex justify-center">
+              <PhoneShot
+                src="/portfolio/fisiogest/pazienti-mobile.png"
+                alt="FisioGest patient list on mobile"
+              />
+            </div>
             <div className="space-y-6">
               {[
                 { t: "Patient List", b: "A prioritized, searchable list replaces the old archive, showing status at a glance." },
@@ -410,23 +412,45 @@ export default function FisioGestPage() {
             </p>
           </div>
           <DesktopShot
-            src="/portfolio/fisiogest/agenda-desktop.png"
-            alt="FisioGest agenda with appointments table on desktop"
+            src="/portfolio/fisiogest/percorso-desktop.png"
+            alt="FisioGest therapeutic pathway and patient detail on desktop"
           />
-          <div className="mt-8 grid items-center gap-6 lg:grid-cols-2">
-            <DesktopShot
-              src="/portfolio/fisiogest/agenda-webapp.png"
-              alt="FisioGest agenda web app card view"
-              className="rounded-xl"
+          <div className="mt-8 flex justify-center">
+            <PhoneShot
+              src="/portfolio/fisiogest/dashboard-progress-mobile.png"
+              alt="FisioGest patient progress dashboard on mobile"
             />
-            <div className="flex justify-center">
-              <PhoneShot
-                src="/portfolio/fisiogest/dashboard-progress-mobile.png"
-                alt="FisioGest patient progress dashboard on mobile"
-              />
-            </div>
           </div>
         </div>
+      </section>
+
+      {/* Agenda */}
+      <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+        <div className="mb-12 text-center">
+          <SectionLabel>Scheduling</SectionLabel>
+          <h2 className="text-2xl font-bold md:text-3xl text-balance">Agenda</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 text-pretty">
+            The agenda is the operational heart of the day: day, week, month and year views with appointment status and a
+            quick WhatsApp confirmation flow, available on mobile and desktop.
+          </p>
+        </div>
+        <div className="mb-10 flex flex-wrap items-end justify-center gap-6">
+          <PhoneShot
+            src="/portfolio/fisiogest/agenda-mobile.png"
+            alt="FisioGest agenda screen on mobile"
+            className="max-w-[230px]"
+          />
+          <PhoneShot
+            src="/portfolio/fisiogest/agenda-webapp.png"
+            alt="FisioGest appointment detail with quick WhatsApp confirmation on mobile"
+            className="max-w-[230px]"
+          />
+        </div>
+        <DesktopShot
+          src="/portfolio/fisiogest/agenda-desktop.png"
+          alt="FisioGest agenda with appointments table on desktop"
+          className="rounded-xl"
+        />
       </section>
 
       {/* Design System */}
