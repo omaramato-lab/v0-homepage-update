@@ -2,36 +2,36 @@ import Link from "next/link"
 import { ArrowLeft, Check, Sparkles, Layers, Bell, ListChecks, Activity, Gauge } from "lucide-react"
 import { PhoneFrame, LaptopFrame, BrowserChrome } from "@/components/portfolio/device-frames"
 
-const GREEN = "#16a34a"
+const GREEN = "#41775c"
 
 function MockDashboard() {
   return (
     <div className="flex h-full">
-      <div className="hidden w-1/5 flex-col gap-2 bg-emerald-50 p-3 sm:flex">
-        <div className="mb-2 h-2 w-3/4 rounded bg-emerald-600" />
+      <div className="hidden w-1/5 flex-col gap-2 bg-[#f1f6f3] p-3 sm:flex">
+        <div className="mb-2 h-2 w-3/4 rounded bg-[#41775c]" />
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="h-1.5 w-full rounded bg-emerald-200" />
+          <div key={i} className="h-1.5 w-full rounded bg-[#d9e7e0]" />
         ))}
       </div>
       <div className="flex-1 p-3">
         <div className="mb-3 flex items-center justify-between">
           <div className="h-2 w-20 rounded bg-neutral-300" />
-          <div className="h-4 w-12 rounded bg-emerald-500" />
+          <div className="h-4 w-12 rounded bg-[#6b9b81]" />
         </div>
         <div className="mb-3 grid grid-cols-3 gap-2">
           {Array.from({ length: 3 }).map((_, i) => (
             <div key={i} className="rounded border border-neutral-100 bg-neutral-50 p-2">
               <div className="mb-1 h-1.5 w-full rounded bg-neutral-200" />
-              <div className="h-3 w-1/2 rounded bg-emerald-400" />
+              <div className="h-3 w-1/2 rounded bg-[#8fb5a1]" />
             </div>
           ))}
         </div>
         <div className="space-y-1.5">
           {Array.from({ length: 5 }).map((_, i) => (
             <div key={i} className="flex items-center gap-2 rounded border border-neutral-100 p-1.5">
-              <div className="h-3 w-3 rounded-full bg-emerald-300" />
+              <div className="h-3 w-3 rounded-full bg-[#b3d0c1]" />
               <div className="h-1.5 flex-1 rounded bg-neutral-200" />
-              <div className="h-1.5 w-8 rounded bg-emerald-200" />
+              <div className="h-1.5 w-8 rounded bg-[#d9e7e0]" />
             </div>
           ))}
         </div>
@@ -43,15 +43,15 @@ function MockDashboard() {
 function MockPhoneApp() {
   return (
     <div className="flex h-full flex-col">
-      <div className="bg-emerald-600 p-3 pt-6">
-        <div className="mb-1 h-2 w-16 rounded bg-emerald-300" />
+      <div className="bg-[#41775c] p-3 pt-6">
+        <div className="mb-1 h-2 w-16 rounded bg-[#b3d0c1]" />
         <div className="h-2 w-24 rounded bg-white/80" />
       </div>
       <div className="flex-1 space-y-2 p-2">
         {Array.from({ length: 6 }).map((_, i) => (
           <div key={i} className="rounded-lg border border-neutral-100 p-2 shadow-sm">
             <div className="mb-1.5 flex items-center gap-2">
-              <div className="h-5 w-5 rounded-full bg-emerald-200" />
+              <div className="h-5 w-5 rounded-full bg-[#d9e7e0]" />
               <div className="h-1.5 flex-1 rounded bg-neutral-200" />
             </div>
             <div className="h-1.5 w-2/3 rounded bg-neutral-100" />
@@ -63,7 +63,7 @@ function MockPhoneApp() {
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-emerald-600">{children}</p>
+  return <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#41775c]">{children}</p>
 }
 
 export default function FisioGestPage() {
@@ -144,12 +144,12 @@ export default function FisioGestPage() {
             <ArrowLeft className="h-4 w-4" />
             All projects
           </Link>
-          <span className="text-sm font-semibold text-emerald-600">FisioGest</span>
+          <span className="text-sm font-semibold text-[#41775c]">FisioGest</span>
         </div>
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-50 to-white">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#f1f6f3] to-white">
         <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div>
@@ -164,7 +164,7 @@ export default function FisioGestPage() {
                 {["Product Design", "UX & UI", "Mobile-First", "Design System"].map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700"
+                    className="rounded-full border border-[#d9e7e0] bg-[#f1f6f3] px-3 py-1 text-xs font-medium text-[#2f5743]"
                   >
                     {t}
                   </span>
@@ -189,7 +189,7 @@ export default function FisioGestPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {loop.map((item, i) => (
             <div key={item.title} className="rounded-2xl border border-neutral-100 bg-neutral-50/60 p-6">
-              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-600 text-sm font-bold text-white">
+              <div className="mb-4 flex h-9 w-9 items-center justify-center rounded-lg bg-[#41775c] text-sm font-bold text-white">
                 {i + 1}
               </div>
               <h3 className="mb-2 text-lg font-semibold">{item.title}</h3>
@@ -201,7 +201,7 @@ export default function FisioGestPage() {
         <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="rounded-2xl border border-neutral-100 p-6 text-center">
-              <div className="text-3xl font-bold text-emerald-600 md:text-4xl">{s.value}</div>
+              <div className="text-3xl font-bold text-[#41775c] md:text-4xl">{s.value}</div>
               <div className="mt-1 text-xs text-neutral-500">{s.label}</div>
             </div>
           ))}
@@ -209,7 +209,7 @@ export default function FisioGestPage() {
       </section>
 
       {/* The problem */}
-      <section className="bg-emerald-50/60 py-16 md:py-20">
+      <section className="bg-[#f1f6f3]/60 py-16 md:py-20">
         <div className="mx-auto max-w-4xl px-4">
           <div className="rounded-2xl bg-white p-8 shadow-sm md:p-10">
             <SectionLabel>The problem</SectionLabel>
@@ -240,7 +240,7 @@ export default function FisioGestPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {["Discover", "Define", "Design", "Deliver"].map((phase, i) => (
             <div key={phase} className="rounded-2xl border border-neutral-100 p-6">
-              <span className="text-xs font-semibold text-emerald-600">0{i + 1}</span>
+              <span className="text-xs font-semibold text-[#41775c]">0{i + 1}</span>
               <h3 className="mt-2 text-base font-semibold">{phase}</h3>
               <p className="mt-2 text-sm leading-relaxed text-neutral-600">
                 {
@@ -265,7 +265,7 @@ export default function FisioGestPage() {
               { t: "People Involved", b: "Physiotherapists, product and engineering working side by side." },
             ].map((c) => (
               <div key={c.t} className="rounded-xl bg-white p-5">
-                <h4 className="mb-1 text-sm font-semibold text-emerald-700">{c.t}</h4>
+                <h4 className="mb-1 text-sm font-semibold text-[#2f5743]">{c.t}</h4>
                 <p className="text-sm text-neutral-600">{c.b}</p>
               </div>
             ))}
@@ -274,7 +274,7 @@ export default function FisioGestPage() {
       </section>
 
       {/* User Journey Map */}
-      <section className="bg-emerald-50/60 py-16 md:py-20">
+      <section className="bg-[#f1f6f3]/60 py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-10 text-center">
             <SectionLabel>Insight</SectionLabel>
@@ -283,12 +283,12 @@ export default function FisioGestPage() {
           <div className="grid gap-4 md:grid-cols-4">
             {["Onboarding", "Daily Session", "Patient Management", "Billing & Review"].map((step, i) => (
               <div key={step} className="rounded-2xl bg-white p-5 shadow-sm">
-                <div className="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-emerald-600 text-xs font-bold text-white">
+                <div className="mb-2 flex h-7 w-7 items-center justify-center rounded-full bg-[#41775c] text-xs font-bold text-white">
                   {i + 1}
                 </div>
                 <h3 className="text-sm font-semibold">{step}</h3>
-                <div className="mt-3 h-1.5 w-full rounded-full bg-emerald-100">
-                  <div className="h-full rounded-full bg-emerald-500" style={{ width: `${60 + i * 12}%` }} />
+                <div className="mt-3 h-1.5 w-full rounded-full bg-[#e8f1ec]">
+                  <div className="h-full rounded-full bg-[#6b9b81]" style={{ width: `${60 + i * 12}%` }} />
                 </div>
               </div>
             ))}
@@ -301,7 +301,7 @@ export default function FisioGestPage() {
               { v: "4.8", l: "Usability score" },
             ].map((s) => (
               <div key={s.l} className="rounded-2xl bg-white p-6 text-center shadow-sm">
-                <div className="text-2xl font-bold text-emerald-600 md:text-3xl">{s.v}</div>
+                <div className="text-2xl font-bold text-[#41775c] md:text-3xl">{s.v}</div>
                 <div className="mt-1 text-xs text-neutral-500">{s.l}</div>
               </div>
             ))}
@@ -326,7 +326,7 @@ export default function FisioGestPage() {
           <div className="grid gap-6 sm:grid-cols-3 lg:max-w-2xl">
             {mobileFeatures.map((f) => (
               <div key={f.title} className="rounded-2xl border border-neutral-100 p-6">
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#e8f1ec] text-[#2f5743]">
                   <f.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mb-1 text-base font-semibold">{f.title}</h3>
@@ -358,7 +358,7 @@ export default function FisioGestPage() {
                 { t: "Patient Profile", b: "A single profile unifies clinical history, documents and billing context." },
                 { t: "KPIs and Pain Map", b: "Visual pain mapping and KPIs turn raw data into decisions during the session." },
               ].map((item) => (
-                <div key={item.t} className="border-l-2 border-emerald-500 pl-4">
+                <div key={item.t} className="border-l-2 border-[#6b9b81] pl-4">
                   <h3 className="text-base font-semibold">{item.t}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-neutral-600">{item.b}</p>
                 </div>
@@ -384,7 +384,7 @@ export default function FisioGestPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {incomeFeatures.map((f) => (
             <div key={f.title} className="rounded-2xl border border-neutral-100 p-6">
-              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700">
+              <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-lg bg-[#e8f1ec] text-[#2f5743]">
                 <f.icon className="h-5 w-5" />
               </div>
               <h3 className="mb-1 text-base font-semibold">{f.title}</h3>
@@ -395,7 +395,7 @@ export default function FisioGestPage() {
       </section>
 
       {/* Therapeutic Pathway */}
-      <section className="bg-emerald-50/60 py-16 md:py-20">
+      <section className="bg-[#f1f6f3]/60 py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mb-10 text-center">
             <SectionLabel>Clinical flow</SectionLabel>
@@ -419,42 +419,180 @@ export default function FisioGestPage() {
           <SectionLabel>Foundations</SectionLabel>
           <h2 className="text-2xl font-bold md:text-3xl text-balance">Design System &amp; Scalability</h2>
           <p className="mt-3 max-w-2xl text-sm text-neutral-600 text-pretty">
-            A scalable system of color, typography and components keeps the product consistent as it grows across
-            platforms.
+            A token-based system of color, typography, spacing and components keeps the product consistent and
+            accessible as it scales across mobile and desktop.
           </p>
         </div>
-        <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-2xl border border-neutral-100 p-6">
-            <h3 className="mb-4 text-sm font-semibold">Color</h3>
-            <div className="grid grid-cols-4 gap-2">
-              {["#16a34a", "#22c55e", "#86efac", "#dcfce7", "#0f172a", "#475569", "#e2e8f0", "#f8fafc"].map((c) => (
-                <div key={c} className="flex flex-col items-center gap-1">
-                  <div
-                    className="h-10 w-full rounded-md border border-neutral-200"
-                    style={{ backgroundColor: c }}
-                  />
+
+        {/* Color tokens */}
+        <div className="mb-8 rounded-2xl border border-neutral-100 p-6 md:p-8">
+          <div className="mb-6 flex items-center justify-between">
+            <h3 className="text-base font-semibold">Color</h3>
+            <span className="text-xs uppercase tracking-widest text-neutral-400">Tokens</span>
+          </div>
+
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">Primary — Sage</p>
+          <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {[
+              { name: "primary/900", hex: "#1f3a2c" },
+              { name: "primary/700", hex: "#2f5743" },
+              { name: "primary/600", hex: "#41775c" },
+              { name: "primary/400", hex: "#6b9b81" },
+              { name: "primary/200", hex: "#b3d0c1" },
+              { name: "primary/50", hex: "#f1f6f3" },
+            ].map((c) => (
+              <div key={c.name} className="overflow-hidden rounded-xl border border-neutral-100">
+                <div className="h-16 w-full" style={{ backgroundColor: c.hex }} />
+                <div className="p-2">
+                  <p className="text-xs font-medium text-neutral-700">{c.name}</p>
+                  <p className="font-mono text-[10px] uppercase text-neutral-400">{c.hex}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">Neutrals</p>
+          <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
+            {[
+              { name: "ink/900", hex: "#0f172a" },
+              { name: "ink/700", hex: "#334155" },
+              { name: "ink/500", hex: "#64748b" },
+              { name: "ink/300", hex: "#cbd5e1" },
+              { name: "ink/100", hex: "#e2e8f0" },
+              { name: "ink/50", hex: "#f8fafc" },
+            ].map((c) => (
+              <div key={c.name} className="overflow-hidden rounded-xl border border-neutral-100">
+                <div className="h-16 w-full" style={{ backgroundColor: c.hex }} />
+                <div className="p-2">
+                  <p className="text-xs font-medium text-neutral-700">{c.name}</p>
+                  <p className="font-mono text-[10px] uppercase text-neutral-400">{c.hex}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-400">Semantic / Status</p>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              { name: "success", hex: "#41775c" },
+              { name: "warning", hex: "#d6a338" },
+              { name: "error", hex: "#c0533f" },
+              { name: "info", hex: "#5a7d9a" },
+            ].map((c) => (
+              <div key={c.name} className="flex items-center gap-3 rounded-xl border border-neutral-100 p-3">
+                <div className="h-8 w-8 flex-shrink-0 rounded-md" style={{ backgroundColor: c.hex }} />
+                <div>
+                  <p className="text-xs font-medium text-neutral-700">{c.name}</p>
+                  <p className="font-mono text-[10px] uppercase text-neutral-400">{c.hex}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-2">
+          {/* Typography */}
+          <div className="rounded-2xl border border-neutral-100 p-6 md:p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-base font-semibold">Typography</h3>
+              <span className="text-xs uppercase tracking-widest text-neutral-400">Inter</span>
+            </div>
+            <div className="divide-y divide-neutral-100">
+              {[
+                { label: "Display / 40·Bold", size: "text-4xl font-bold", sample: "Aa" },
+                { label: "H1 / 30·Bold", size: "text-3xl font-bold", sample: "Heading" },
+                { label: "H2 / 24·Semibold", size: "text-2xl font-semibold", sample: "Subheading" },
+                { label: "Body / 16·Regular", size: "text-base", sample: "Body copy stays legible." },
+                { label: "Caption / 12·Medium", size: "text-xs font-medium uppercase tracking-wider", sample: "Caption label" },
+              ].map((t) => (
+                <div key={t.label} className="flex items-baseline justify-between gap-4 py-3">
+                  <span className={`${t.size} text-neutral-900`}>{t.sample}</span>
+                  <span className="flex-shrink-0 font-mono text-[10px] text-neutral-400">{t.label}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-neutral-100 p-6">
-            <h3 className="mb-4 text-sm font-semibold">Typography</h3>
-            <div className="space-y-2">
-              <p className="text-2xl font-bold">Aa Heading</p>
-              <p className="text-base font-medium">Aa Subtitle</p>
-              <p className="text-sm text-neutral-600">Aa Body — clear, legible and accessible at every size.</p>
+
+          {/* Spacing + Radius */}
+          <div className="rounded-2xl border border-neutral-100 p-6 md:p-8">
+            <div className="mb-6 flex items-center justify-between">
+              <h3 className="text-base font-semibold">Spacing &amp; Radius</h3>
+              <span className="text-xs uppercase tracking-widest text-neutral-400">4pt grid</span>
+            </div>
+            <div className="mb-6 space-y-2">
+              {[
+                { name: "xs", px: 4 },
+                { name: "sm", px: 8 },
+                { name: "md", px: 16 },
+                { name: "lg", px: 24 },
+                { name: "xl", px: 40 },
+              ].map((s) => (
+                <div key={s.name} className="flex items-center gap-3">
+                  <span className="w-8 font-mono text-[10px] uppercase text-neutral-400">{s.name}</span>
+                  <div className="h-3 rounded bg-[#6b9b81]" style={{ width: s.px * 2 }} />
+                  <span className="font-mono text-[10px] text-neutral-400">{s.px}px</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-end gap-3">
+              {[
+                { name: "sm", r: "rounded-md" },
+                { name: "md", r: "rounded-xl" },
+                { name: "lg", r: "rounded-2xl" },
+                { name: "full", r: "rounded-full" },
+              ].map((r) => (
+                <div key={r.name} className="flex flex-col items-center gap-1">
+                  <div className={`h-12 w-12 border-2 border-[#41775c] bg-[#f1f6f3] ${r.r}`} />
+                  <span className="font-mono text-[10px] text-neutral-400">{r.name}</span>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-neutral-100 p-6">
-            <h3 className="mb-4 text-sm font-semibold">Components</h3>
+        </div>
+
+        {/* Components */}
+        <div className="mt-6 rounded-2xl border border-neutral-100 p-6 md:p-8">
+          <h3 className="mb-6 text-base font-semibold">Components</h3>
+          <div className="grid gap-8 md:grid-cols-3">
             <div className="space-y-3">
-              <button className="w-full rounded-lg bg-emerald-600 py-2 text-sm font-medium text-white">Primary</button>
-              <button className="w-full rounded-lg border border-emerald-600 py-2 text-sm font-medium text-emerald-700">
+              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Buttons</p>
+              <button className="w-full rounded-lg bg-[#41775c] py-2 text-sm font-medium text-white">Primary</button>
+              <button className="w-full rounded-lg border border-[#41775c] py-2 text-sm font-medium text-[#2f5743]">
                 Secondary
               </button>
-              <div className="flex gap-2">
-                <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs text-emerald-700">Active</span>
+              <button className="w-full rounded-lg py-2 text-sm font-medium text-[#41775c] hover:bg-[#f1f6f3]">
+                Ghost
+              </button>
+            </div>
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Badges</p>
+              <div className="flex flex-wrap gap-2">
+                <span className="rounded-full bg-[#e8f1ec] px-3 py-1 text-xs text-[#2f5743]">Active</span>
                 <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs text-neutral-600">Draft</span>
+                <span className="rounded-full bg-[#fbeede] px-3 py-1 text-xs text-[#a4762a]">Pending</span>
+                <span className="rounded-full bg-[#f7e1db] px-3 py-1 text-xs text-[#a4402c]">Overdue</span>
+              </div>
+              <p className="pt-2 text-xs font-semibold uppercase tracking-wider text-neutral-400">Input</p>
+              <div className="rounded-lg border border-neutral-200 px-3 py-2 text-sm text-neutral-400">
+                Search patient…
+              </div>
+            </div>
+            <div className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-wider text-neutral-400">Patient card</p>
+              <div className="rounded-xl border border-neutral-100 p-3 shadow-sm">
+                <div className="mb-2 flex items-center gap-2">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f1ec] text-xs font-semibold text-[#2f5743]">
+                    MR
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-neutral-800">Maria Rossi</p>
+                    <p className="text-[10px] text-neutral-400">Next: today · 15:30</p>
+                  </div>
+                  <span className="ml-auto h-2 w-2 rounded-full bg-[#6b9b81]" />
+                </div>
+                <div className="h-1.5 w-full rounded-full bg-[#e8f1ec]">
+                  <div className="h-full w-2/3 rounded-full bg-[#41775c]" />
+                </div>
               </div>
             </div>
           </div>
@@ -462,7 +600,7 @@ export default function FisioGestPage() {
       </section>
 
       {/* Impact */}
-      <section className="bg-emerald-600 py-16 text-white md:py-20">
+      <section className="bg-[#41775c] py-16 text-white md:py-20">
         <div className="mx-auto max-w-6xl px-4">
           <h2 className="mb-10 text-center text-2xl font-bold md:text-3xl text-balance">Impact and Success Metrics</h2>
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
@@ -474,18 +612,18 @@ export default function FisioGestPage() {
             ].map((s) => (
               <div key={s.l} className="text-center">
                 <div className="text-3xl font-bold md:text-4xl">{s.v}</div>
-                <div className="mt-1 text-sm text-emerald-100">{s.l}</div>
+                <div className="mt-1 text-sm text-[#e8f1ec]">{s.l}</div>
               </div>
             ))}
           </div>
           <div className="mt-12 flex flex-col items-center gap-4 text-center">
-            <div className="flex items-center gap-2 text-emerald-100">
+            <div className="flex items-center gap-2 text-[#e8f1ec]">
               <Check className="h-5 w-5" />
               <span className="text-sm">From fragmented tools to one operational hub.</span>
             </div>
             <Link
               href="/portfolio"
-              className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-emerald-700 transition-colors hover:bg-emerald-50"
+              className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-[#2f5743] transition-colors hover:bg-[#f1f6f3]"
             >
               View other case studies
             </Link>
