@@ -155,8 +155,8 @@ export default function FisioGestPage() {
             </div>
             <div className="flex justify-center">
               <Image
-                src="/portfolio/fisiogest/hero-phones.png"
-                alt="FisioGest landing screen shown on two iPhones"
+                src="/portfolio/fisiogest/agenda-webapp.png"
+                alt="FisioGest agenda web app shown on a phone"
                 width={1040}
                 height={1380}
                 priority
@@ -307,15 +307,13 @@ export default function FisioGestPage() {
           </p>
         </div>
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:justify-center">
-          <div className="flex items-end justify-center gap-4">
-            <PhoneShot
-              src="/portfolio/fisiogest/patient-overview-mobile.png"
-              alt="FisioGest patient overview screen on mobile"
-            />
-            <PhoneShot
-              src="/portfolio/fisiogest/add-patient-mobile.png"
-              alt="FisioGest add patient screen on mobile"
-              className="hidden sm:block"
+          <div className="flex items-end justify-center">
+            <Image
+              src="/portfolio/fisiogest/hero-phones.png"
+              alt="FisioGest shown on two iPhones"
+              width={1040}
+              height={1380}
+              className="h-auto w-full max-w-sm drop-shadow-2xl"
             />
           </div>
           <div className="grid gap-6 sm:grid-cols-3 lg:max-w-2xl">
