@@ -1,64 +1,46 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowLeft, Check, Sparkles, Layers, Bell, ListChecks, Activity, Gauge } from "lucide-react"
-import { PhoneFrame, LaptopFrame, BrowserChrome } from "@/components/portfolio/device-frames"
 
 const GREEN = "#41775c"
 
-function MockDashboard() {
+function PhoneShot({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string
+  alt: string
+  className?: string
+}) {
   return (
-    <div className="flex h-full">
-      <div className="hidden w-1/5 flex-col gap-2 bg-[#f1f6f3] p-3 sm:flex">
-        <div className="mb-2 h-2 w-3/4 rounded bg-[#41775c]" />
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="h-1.5 w-full rounded bg-[#d9e7e0]" />
-        ))}
-      </div>
-      <div className="flex-1 p-3">
-        <div className="mb-3 flex items-center justify-between">
-          <div className="h-2 w-20 rounded bg-neutral-300" />
-          <div className="h-4 w-12 rounded bg-[#6b9b81]" />
-        </div>
-        <div className="mb-3 grid grid-cols-3 gap-2">
-          {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="rounded border border-neutral-100 bg-neutral-50 p-2">
-              <div className="mb-1 h-1.5 w-full rounded bg-neutral-200" />
-              <div className="h-3 w-1/2 rounded bg-[#8fb5a1]" />
-            </div>
-          ))}
-        </div>
-        <div className="space-y-1.5">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-2 rounded border border-neutral-100 p-1.5">
-              <div className="h-3 w-3 rounded-full bg-[#b3d0c1]" />
-              <div className="h-1.5 flex-1 rounded bg-neutral-200" />
-              <div className="h-1.5 w-8 rounded bg-[#d9e7e0]" />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <Image
+      src={src || "/placeholder.svg"}
+      alt={alt}
+      width={400}
+      height={860}
+      className={`h-auto w-full max-w-[260px] drop-shadow-2xl ${className}`}
+    />
   )
 }
 
-function MockPhoneApp() {
+function DesktopShot({
+  src,
+  alt,
+  className = "",
+}: {
+  src: string
+  alt: string
+  className?: string
+}) {
   return (
-    <div className="flex h-full flex-col">
-      <div className="bg-[#41775c] p-3 pt-6">
-        <div className="mb-1 h-2 w-16 rounded bg-[#b3d0c1]" />
-        <div className="h-2 w-24 rounded bg-white/80" />
-      </div>
-      <div className="flex-1 space-y-2 p-2">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="rounded-lg border border-neutral-100 p-2 shadow-sm">
-            <div className="mb-1.5 flex items-center gap-2">
-              <div className="h-5 w-5 rounded-full bg-[#d9e7e0]" />
-              <div className="h-1.5 flex-1 rounded bg-neutral-200" />
-            </div>
-            <div className="h-1.5 w-2/3 rounded bg-neutral-100" />
-          </div>
-        ))}
-      </div>
-    </div>
+    <Image
+      src={src || "/placeholder.svg"}
+      alt={alt}
+      width={1400}
+      height={1000}
+      className={`h-auto w-full drop-shadow-2xl ${className}`}
+    />
   )
 }
 
@@ -171,11 +153,16 @@ export default function FisioGestPage() {
                 ))}
               </div>
             </div>
-            <LaptopFrame>
-              <BrowserChrome>
-                <MockDashboard />
-              </BrowserChrome>
-            </LaptopFrame>
+            <div className="flex justify-center">
+              <Image
+                src="/portfolio/fisiogest/hero-phones.png"
+                alt="FisioGest landing screen shown on two iPhones"
+                width={1040}
+                height={1380}
+                priority
+                className="h-auto w-full max-w-md drop-shadow-2xl"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -320,9 +307,17 @@ export default function FisioGestPage() {
           </p>
         </div>
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:justify-center">
-          <PhoneFrame>
-            <MockPhoneApp />
-          </PhoneFrame>
+          <div className="flex items-end justify-center gap-4">
+            <PhoneShot
+              src="/portfolio/fisiogest/agenda-mobile.png"
+              alt="FisioGest agenda screen on mobile"
+            />
+            <PhoneShot
+              src="/portfolio/fisiogest/patient-overview-mobile.png"
+              alt="FisioGest patient overview screen on mobile"
+              className="hidden sm:block"
+            />
+          </div>
           <div className="grid gap-6 sm:grid-cols-3 lg:max-w-2xl">
             {mobileFeatures.map((f) => (
               <div key={f.title} className="rounded-2xl border border-neutral-100 p-6">
@@ -347,11 +342,10 @@ export default function FisioGestPage() {
             </h2>
           </div>
           <div className="grid items-center gap-10 lg:grid-cols-2">
-            <LaptopFrame>
-              <BrowserChrome>
-                <MockDashboard />
-              </BrowserChrome>
-            </LaptopFrame>
+            <DesktopShot
+              src="/portfolio/fisiogest/percorso-desktop.png"
+              alt="FisioGest patient detail and therapeutic pathway on desktop"
+            />
             <div className="space-y-6">
               {[
                 { t: "Patient List", b: "A prioritized, searchable list replaces the old archive, showing status at a glance." },
@@ -374,12 +368,22 @@ export default function FisioGestPage() {
           <SectionLabel>Outcome</SectionLabel>
           <h2 className="text-2xl font-bold md:text-3xl text-balance">Income Control and Cognitive Load Reduction</h2>
         </div>
-        <div className="mb-12 flex flex-wrap justify-center gap-6">
-          {[0, 1, 2].map((i) => (
-            <PhoneFrame key={i} className="w-[170px]">
-              <MockPhoneApp />
-            </PhoneFrame>
-          ))}
+        <div className="mb-12 flex flex-wrap items-end justify-center gap-6">
+          <PhoneShot
+            src="/portfolio/fisiogest/incassi-mobile.png"
+            alt="FisioGest income overview on mobile"
+            className="max-w-[210px]"
+          />
+          <PhoneShot
+            src="/portfolio/fisiogest/gestione-pagamento-mobile.png"
+            alt="FisioGest payment management modal on mobile"
+            className="max-w-[210px]"
+          />
+          <PhoneShot
+            src="/portfolio/fisiogest/incassi-multiselect-mobile.png"
+            alt="FisioGest bulk payment selection on mobile"
+            className="max-w-[210px]"
+          />
         </div>
         <div className="grid gap-6 md:grid-cols-3">
           {incomeFeatures.map((f) => (
@@ -405,11 +409,23 @@ export default function FisioGestPage() {
               reviewable flow.
             </p>
           </div>
-          <LaptopFrame>
-            <BrowserChrome>
-              <MockDashboard />
-            </BrowserChrome>
-          </LaptopFrame>
+          <DesktopShot
+            src="/portfolio/fisiogest/agenda-desktop.png"
+            alt="FisioGest agenda with appointments table on desktop"
+          />
+          <div className="mt-8 grid items-center gap-6 lg:grid-cols-2">
+            <DesktopShot
+              src="/portfolio/fisiogest/agenda-webapp.png"
+              alt="FisioGest agenda web app card view"
+              className="rounded-xl"
+            />
+            <div className="flex justify-center">
+              <PhoneShot
+                src="/portfolio/fisiogest/dashboard-progress-mobile.png"
+                alt="FisioGest patient progress dashboard on mobile"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
