@@ -114,6 +114,21 @@ export default function FisioGestPage() {
     },
   ]
 
+  const agendaScreens = [
+    {
+      src: "/portfolio/fisiogest/agenda-mobile.png",
+      alt: "FisioGest agenda day view on mobile",
+      title: "Daily Overview",
+      body: "The day view puts every appointment, status and time slot one tap away, built for quick checks between sessions.",
+    },
+    {
+      src: "/portfolio/fisiogest/agenda-cta-whatsapp.png",
+      alt: "FisioGest appointment detail with quick WhatsApp confirmation on mobile",
+      title: "Quick Confirmation",
+      body: "Open an appointment to confirm or reschedule and send a WhatsApp reminder to the patient in a single flow.",
+    },
+  ]
+
   return (
     <main className="min-h-screen bg-white text-neutral-900">
       {/* Top bar */}
@@ -330,6 +345,35 @@ export default function FisioGestPage() {
         </div>
       </section>
 
+      {/* Agenda */}
+      <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
+        <div className="mb-12 text-center">
+          <SectionLabel>Scheduling</SectionLabel>
+          <h2 className="text-2xl font-bold md:text-3xl text-balance">Agenda</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 text-pretty">
+            The agenda is the operational heart of the day: day, week, month and year views with appointment status and a
+            quick WhatsApp confirmation flow, available on mobile and desktop.
+          </p>
+        </div>
+        <div className="mb-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {agendaScreens.map((s, i) => (
+            <div key={s.title} className="flex flex-col items-center text-center">
+              <PhoneShot src={s.src} alt={s.alt} className="max-w-[230px]" />
+              <span className="mt-6 inline-flex h-7 items-center justify-center rounded-md bg-[#e8f1ec] px-3 font-mono text-xs font-semibold text-[#2f5743]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-3 text-base font-semibold">{s.title}</h3>
+              <p className="mt-2 max-w-xs text-sm leading-relaxed text-neutral-600 text-pretty">{s.body}</p>
+            </div>
+          ))}
+        </div>
+        <DesktopShot
+          src="/portfolio/fisiogest/agenda-desktop.png"
+          alt="FisioGest agenda with appointments table on desktop"
+          className="rounded-xl"
+        />
+      </section>
+
       {/* Patient Management */}
       <section className="bg-neutral-50 py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-4">
@@ -420,35 +464,6 @@ export default function FisioGestPage() {
             />
           </div>
         </div>
-      </section>
-
-      {/* Agenda */}
-      <section className="mx-auto max-w-6xl px-4 py-16 md:py-20">
-        <div className="mb-12 text-center">
-          <SectionLabel>Scheduling</SectionLabel>
-          <h2 className="text-2xl font-bold md:text-3xl text-balance">Agenda</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-neutral-600 text-pretty">
-            The agenda is the operational heart of the day: day, week, month and year views with appointment status and a
-            quick WhatsApp confirmation flow, available on mobile and desktop.
-          </p>
-        </div>
-        <div className="mb-10 flex flex-wrap items-end justify-center gap-6">
-          <PhoneShot
-            src="/portfolio/fisiogest/agenda-mobile.png"
-            alt="FisioGest agenda screen on mobile"
-            className="max-w-[230px]"
-          />
-          <PhoneShot
-            src="/portfolio/fisiogest/agenda-webapp.png"
-            alt="FisioGest appointment detail with quick WhatsApp confirmation on mobile"
-            className="max-w-[230px]"
-          />
-        </div>
-        <DesktopShot
-          src="/portfolio/fisiogest/agenda-desktop.png"
-          alt="FisioGest agenda with appointments table on desktop"
-          className="rounded-xl"
-        />
       </section>
 
       {/* Design System */}
